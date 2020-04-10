@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import NavigationItems from './components/NavigationItems/NavigationItems';
 import KPI from './components/KPI/KPI';
 import Search from './components/Search/Search';
@@ -12,13 +12,15 @@ const App = () => {
   console.log('app mounted')
   // const globaState = useContext(store);
   // const { dispatch } = globaState;
+
   const dispatch = useDispatch();
 
-  const onFetchStats = () => dispatch(actions.getStats());
+  const onFetchStats = useCallback(() => dispatch(actions.getStats()), [dispatch]);
 
   useEffect(() => {
     // Dispatch an action to fetch new data after every 10mins
     console.log('useEffect ran');
+    onFetchStats();
     const intervalId = setInterval(function () {
       console.log('setting interval');
       onFetchStats();
@@ -26,7 +28,7 @@ const App = () => {
 
     return () => clearInterval(intervalId);
 
-  }, []);
+  }, [onFetchStats]);
 
   return (
     <div className="App">

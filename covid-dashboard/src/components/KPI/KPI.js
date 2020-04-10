@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from './Card/Card';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
-const KPI = () => {
+const KPI = (props) => {
 
     // const { globalStats } = useContext(store);
     // const cards = [];
@@ -11,30 +11,32 @@ const KPI = () => {
     //         <Card name={prop} magnitude={globalStats.prop} graphType='red' />
     //     )
     // }
-    
-    const globalStats = useSelector(state => {
-        console.log('setting globalStats in KPI')
-        return state.stats.globalStats;
-    })
-    console.log(globalStats);
-    const cards = [];
 
-    Object.entries(globalStats).map(item => {
-        let [name, magnitude] = [...item];
-        cards.push(
-            <Card name={name} magnitude={magnitude} graphType='red' />
-        )
-    })
+    const { globalStats } = props;
+
+    // console.log(globalStats);
+
+    let cards = [];
+
+    if (globalStats) {
+        console.log('inside if')
+        cards = Object.entries(globalStats).map(item => {
+            let [name, magnitude] = [...item];
+            return <Card key={name} name={name} magnitude={magnitude} graphType='red' />
+        })
+    }
 
     return (
         <>
-            {cards && <p>Waiting for data...</p>}
-            {/* <Card name={name} magnitude={magnitude} graphType='red' />
-            <Card name={name} magnitude={magnitude} graphType='green' />
-            <Card name={name} magnitude={magnitude} graphType='red' />
-            <Card name={name} magnitude={magnitude} graphType='red' /> */}
+            {cards ? cards : <p>Waiting for data...</p>}
         </>
     )
 }
 
-export default KPI;
+const mapStateToProps = (state) => {
+    return {
+        globalStats: state.stats.globalStats
+    };
+}
+
+export default connect(mapStateToProps)(KPI);

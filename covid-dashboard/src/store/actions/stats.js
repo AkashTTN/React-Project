@@ -11,12 +11,13 @@ export const fetchedStats = (newStats) => {
 export const getStats = () => {
     return dispatch => {
         console.log('dispatching fetch')
-        let url = 'http://corona.lmao.ninja/';
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        const baseUrl = 'http://corona.lmao.ninja/';
         const newStats = {};
-        fetch(url + 'all')
+        fetch(proxyurl + baseUrl + 'all')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log('Request Success');
                 const { cases, recovered, active, deaths } = data;
                 newStats['globalStats'] = {
                     'Total Cases': cases,
@@ -27,13 +28,12 @@ export const getStats = () => {
             })
             .catch(err => console.log('ERROR fetching global stats data', err))
             
-        fetch(url + 'yesterday?sort=critical')
+        fetch(proxyurl + baseUrl + 'yesterday?sort=critical')
             .then(res => res.json())
             .then((data) => {
                 newStats['statsByCountry'] = data;
+                dispatch(fetchedStats(newStats));
             })
             .catch(err => console.log('ERROR fetching country stats data', err))
-            
-        dispatch(fetchedStats(newStats));
     }
 }

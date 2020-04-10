@@ -1,6 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
+import { formatNumbers } from '../utility';
 
-const initialState = { globalStats: null, statsByCountry: null };
+const initialState = {
+    globalStats: null,
+    statsByCountry: null
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -9,7 +13,7 @@ const reducer = (state = initialState, action) => {
             const { globalStats, statsByCountry } = action.payload;
             return {
                 ...state,
-                globalStats,
+                globalStats: formatNumbers(globalStats),
                 statsByCountry
             }
 
