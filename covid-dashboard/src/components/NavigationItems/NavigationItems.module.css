@@ -1,0 +1,12 @@
+li {
+    list-style: none;
+}
+
+.NavigationItems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+}

@@ -1,0 +1,26 @@
+.Button {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #30313A;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.Regular:focus {
+    background-color: #52586A;
+    color: white;
+}
+
+.Danger {
+    background-color: #FFEAEB;
+    color: #FF0019;
+}
+
+.Danger:focus {
+    background-color: #FFEAEB;
+    color: #FF0019;
+}

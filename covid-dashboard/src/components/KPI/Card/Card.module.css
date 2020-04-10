@@ -1,0 +1,30 @@
+.Card {
+    display: inline-block;
+	padding: 15px;
+	margin: 30px 10px 10px 10px;
+	background-color: white;
+	box-shadow: 0px 5px 20px #1425401A;
+	border-radius: 8px;
+}
+
+.Data {
+	display: inline-block;
+	padding-right: 10px;
+}
+
+img {
+	padding-left: 10px;
+}
+
+.Card .Data span {
+    font-size: 14px;
+    color: #52586A;
+    font-weight: bolder;
+}
+
+.Card .Data p {
+    font-size: 24px;
+    color: #30313A;
+    font-weight: bolder;
+    margin: 5px 0 0 0;
+}
