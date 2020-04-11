@@ -9,4 +9,6 @@ li {
     box-sizing: border-box;
     font-size: 14px;
     font-weight: bold;
+    margin: 0;
+    padding: 15px 30px;
 }

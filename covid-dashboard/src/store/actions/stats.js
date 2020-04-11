@@ -28,7 +28,7 @@ export const getStats = () => {
             })
             .catch(err => console.log('ERROR fetching global stats data', err))
             
-        fetch(proxyurl + baseUrl + 'yesterday?sort=critical')
+        fetch(proxyurl + baseUrl + 'countries?sort=critical')
             .then(res => res.json())
             .then((data) => {
                 newStats['statsByCountry'] = data;

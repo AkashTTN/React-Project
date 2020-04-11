@@ -1,12 +1,9 @@
-.NavigationItem {
-    box-sizing: border-box;
-}
-
 .NavigationItem a {
     text-decoration: none;
     color: #52586A;
-    padding: 15px 0;
+    padding: 12px 0;
     margin-right: 40px;
+    box-sizing: border-box;
 }
 
 .NavigationItem a:hover,

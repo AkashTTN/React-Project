@@ -1,12 +1,18 @@
 import numeral from 'numeral';
 
 // Function to format numbers in k format
-export const formatNumbers = (object) => {
-    const updatedObject = {...object};
+export const formatNumbers = (value) => {
 
-    for(let prop in updatedObject) {
-        updatedObject[prop] = numeral(updatedObject[prop]).format('0a');
+    let updatedValue;
+
+    if(typeof value === 'object') {
+        updatedValue = {...value};
+        for(let prop in updatedValue) {
+            updatedValue[prop] = numeral(updatedValue[prop]).format('0a');
+        }
+    } else if(typeof value === 'number' && !isNaN(value)) {
+        updatedValue = numeral(value).format('0a');
     }
 
-    return updatedObject;
+    return updatedValue;
 }

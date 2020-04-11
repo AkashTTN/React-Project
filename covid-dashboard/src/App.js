@@ -6,7 +6,7 @@ import Trends from './components/Trends/Trends';
 import * as actions from './store/actions/index';
 import { useDispatch } from 'react-redux';
 
-import './App.module.css';
+import classes from './App.module.css';
 
 const App = () => {
   console.log('app mounted')
@@ -31,12 +31,16 @@ const App = () => {
   }, [onFetchStats]);
 
   return (
-    <div className="App">
-      <NavigationItems />
-      <KPI />
-      <Search />
-      {/* <Map /> */}
-      <Trends />
+    <div className={classes.App}>
+      <div className={classes.NavContainer}>
+        <NavigationItems />
+      </div>
+      <div className={classes.BodyContainer} >
+        <KPI />
+        <Search />
+        {/* <Map /> */}
+        <Trends />
+      </div>
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import Card from './Card/Card';
 import { connect } from 'react-redux';
 
+import classes from './KPI.module.css';
+
 const KPI = (props) => {
 
     // const { globalStats } = useContext(store);
@@ -19,7 +21,7 @@ const KPI = (props) => {
     let cards = [];
 
     if (globalStats) {
-        console.log('inside if')
+        // console.log('inside if')
         cards = Object.entries(globalStats).map(item => {
             let [name, magnitude] = [...item];
             return <Card key={name} name={name} magnitude={magnitude} graphType='red' />
@@ -27,9 +29,9 @@ const KPI = (props) => {
     }
 
     return (
-        <>
+        <div className={classes.KPI}>
             {cards ? cards : <p>Waiting for data...</p>}
-        </>
+        </div>
     )
 }
 
