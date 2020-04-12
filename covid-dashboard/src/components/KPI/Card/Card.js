@@ -8,17 +8,17 @@ import classes from './Card.module.css';
 
 const Card = props => (
     <div className={classes.Card}>
-        <div className={classes.Data}>
+        <div className={classes.Data} >
             <span>{props.name}</span>
-            <img 
-                src={props.graphType === 'red' ? up : down} 
-                alt="arrow" 
+            <img
+                src={props.graphType === 'red' ? up : down}
+                alt="arrow"
             />
             <p>{props.magnitude}</p>
         </div>
-        <img 
-            src={props.graphType === 'red' ? redGraph : greenGraph} 
-            alt='kpi'    
+        <img
+            src={props.graphType === 'red' ? redGraph : greenGraph}
+            alt='kpi'
         />
     </div>
 )

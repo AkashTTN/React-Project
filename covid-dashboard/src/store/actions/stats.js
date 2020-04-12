@@ -20,14 +20,14 @@ export const getStats = () => {
                 console.log('Request Success');
                 const { cases, recovered, active, deaths } = data;
                 newStats['globalStats'] = {
-                    'Total Cases': cases,
-                    'Recovered': recovered,
-                    'Active Cases': active,
-                    'Total Deaths': deaths
+                    cases,
+                    recovered,
+                    active,
+                    deaths
                 };
             })
             .catch(err => console.log('ERROR fetching global stats data', err))
-            
+
         fetch(proxyurl + baseUrl + 'countries?sort=critical')
             .then(res => res.json())
             .then((data) => {

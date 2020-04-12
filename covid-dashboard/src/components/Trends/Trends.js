@@ -4,7 +4,7 @@ import Button from '../UI/Button/Button';
 import classes from './Trends.module.css';
 
 const Trends = () => (
-    <>
+    <div className={classes.Trends}>
         <header>
             <span>Spread Trends</span>
             <ul className={classes.ButtonList}>
@@ -13,7 +13,7 @@ const Trends = () => (
                 <Button btnType='Regular' >Deceased</Button>
             </ul>
         </header>
-    </>
+    </div>
 )
 
 export default Trends;

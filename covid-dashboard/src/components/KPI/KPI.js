@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './Card/Card';
 import { connect } from 'react-redux';
 
 import classes from './KPI.module.css';
+
+const nameMap = {
+    cases: 'Total Cases',
+    recovered: 'Recovered',
+    active: 'Active Cases',
+    deaths: 'Total Deaths'
+}
 
 const KPI = (props) => {
 
@@ -14,7 +21,11 @@ const KPI = (props) => {
     //     )
     // }
 
-    const { globalStats } = props;
+    const [globalStats, setGlobalStats]  = useState(props.globalStats);
+
+    useEffect(() => {
+        setGlobalStats(props.globalStats);
+    }, [props.globalStats]);
 
     // console.log(globalStats);
 
@@ -22,9 +33,10 @@ const KPI = (props) => {
 
     if (globalStats) {
         // console.log('inside if')
+        console.log(nameMap)
         cards = Object.entries(globalStats).map(item => {
             let [name, magnitude] = [...item];
-            return <Card key={name} name={name} magnitude={magnitude} graphType='red' />
+            return <Card key={name} name={nameMap[name]} magnitude={magnitude} graphType='red' />
         })
     }
 

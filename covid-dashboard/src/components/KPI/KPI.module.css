@@ -1,4 +1,4 @@
 .KPI {
-    margin: 10px;
-    padding: 10px;
+    display: flex;
+    flex: 1;
 }
