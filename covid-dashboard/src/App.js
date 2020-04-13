@@ -14,17 +14,18 @@ import { useDispatch } from 'react-redux';
 import classes from './App.module.css';
 
 const App = () => {
-  console.log('app mounted')
+  console.log('App Mounted');
   // const globaState = useContext(store);
   // const { dispatch } = globaState;
 
   const dispatch = useDispatch();
 
   const onFetchStats = useCallback(() => dispatch(actions.getStats()), [dispatch]);
+  const onFetchHistoricalData = useCallback(() => dispatch(actions.getHistoricalData()), [dispatch]);
 
   useEffect(() => {
-    // Dispatch an action to fetch new data after every 10mins
-    console.log('useEffect ran');
+    // Dispatch an action to fetch new stats data after every 10mins or 600000 seconds
+    // console.log('useEffect ran');
     onFetchStats();
     const intervalId = setInterval(function () {
       console.log('setting interval');
@@ -34,6 +35,19 @@ const App = () => {
     return () => clearInterval(intervalId);
 
   }, [onFetchStats]);
+
+  useEffect(() => {
+    // Dispatch an action to fetch new hostorical data after every 1hr
+    // console.log('useEffect ran');
+    onFetchHistoricalData();
+    const intervalId = setInterval(function () {
+      console.log('setting interval');
+      onFetchHistoricalData();
+    }, 6000000)
+
+    return () => clearInterval(intervalId);
+
+  }, [onFetchHistoricalData]);
 
   return (
     <div className={classes.App}>

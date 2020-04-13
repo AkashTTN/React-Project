@@ -32,7 +32,7 @@ const Map = (props) => {
 
         dataForMap = dataForMap.filter(Boolean);
 
-        map = am4core.create("MapDiv", am4maps.MapChart);
+        map = am4core.create(classes.MapDiv, am4maps.MapChart);
         map.geodata = am4geodata_worldLow;
 
         map.hiddenState.properties.opacity = 0; // this creates initial fade-in
@@ -41,7 +41,7 @@ const Map = (props) => {
 
         let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
         let polygonTemplate = polygonSeries.mapPolygons.template;
-        polygonTemplate.tooltipText = "{name}, Active: {value.value.formatNumber('#.0')}";
+        polygonTemplate.tooltipText = "{name}\nActive: [bold]{value.value.formatNumber('#.0')}";
         polygonSeries.heatRules.push({
             property: "fill",
             target: polygonSeries.mapPolygons.template,
@@ -56,14 +56,14 @@ const Map = (props) => {
 
         polygonSeries.data = dataForMap;
         polygonSeries.exclude = ["AQ"];
+
+        map.responsive.enabled = true;
     }
 
-    let inputClasses = [classes.MapDivContainer];
-    inputClasses.push('MapDiv');
-
     return (
-        <div className={inputClasses.join(' ')}>
-
+        <div className={classes.Map}>
+            <p>COVID-19 Affected Areas</p>
+            <div className={classes.MapDiv}></div>
         </div>
     )
 }

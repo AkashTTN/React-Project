@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 
+const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
 export const fetchedStats = (newStats) => {
     return {
@@ -8,32 +9,61 @@ export const fetchedStats = (newStats) => {
     };
 }
 
+export const fetchedHistoricalData = (newHistoricalData) => {
+    return {
+        type: actionTypes.GET_HISTORICAL_DATA,
+        payload: newHistoricalData
+    }
+}
+
 export const getStats = () => {
     return dispatch => {
-        console.log('dispatching fetch')
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const baseUrl = 'http://corona.lmao.ninja/';
-        const newStats = {};
-        fetch(proxyurl + baseUrl + 'all')
-            .then(res => res.json())
-            .then(data => {
-                console.log('Request Success');
-                const { cases, recovered, active, deaths } = data;
-                newStats['globalStats'] = {
-                    cases,
-                    recovered,
-                    active,
-                    deaths
-                };
-            })
-            .catch(err => console.log('ERROR fetching global stats data', err))
+        const newStats = { globalStats: {}, statsByCountry: {} };
+        const newGlobalStats = (
+            fetch(PROXY_URL + baseUrl + 'all')
+                .then(res => res.json())
+                .then(data => {
+                    console.log('Stats Data Request Success');
+                    const { cases, recovered, active, deaths } = data;
+                    return {
+                        cases,
+                        recovered,
+                        active,
+                        deaths
+                    };
+                })
+                .catch(err => console.log('ERROR fetching global stats data', err))
+        );
 
-        fetch(proxyurl + baseUrl + 'countries?sort=critical')
-            .then(res => res.json())
-            .then((data) => {
-                newStats['statsByCountry'] = data;
+        const newStatsByCountry = (
+            fetch(PROXY_URL + baseUrl + 'countries?sort=critical')
+                .then(res => res.json())
+                .then((data) => {
+                    return data;
+                })
+                .catch(err => console.log('ERROR fetching country stats data', err))
+        );
+
+        Promise.all([newGlobalStats, newStatsByCountry])
+            .then((values) => {
+                newStats['globalStats'] = values[0];
+                newStats['statsByCountry'] = values[1];
                 dispatch(fetchedStats(newStats));
             })
-            .catch(err => console.log('ERROR fetching country stats data', err))
+
+    }
+}
+
+export const getHistoricalData = () => {
+    return dispatch => {
+        const baseUrl = 'https://corona.lmao.ninja/v2/historical?lastdays=8';
+        fetch(PROXY_URL + baseUrl)
+            .then(res => res.json())
+            .then(data => {
+                console.log('Historical Data Request Success');
+                dispatch(fetchedHistoricalData(data));
+            })
+            .catch(err => console.log('ERROR fetching historical data', err))
     }
 }

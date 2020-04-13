@@ -1,9 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
-import { formatNumbers } from '../utility';
 
 const initialState = {
     globalStats: null,
-    statsByCountry: null
+    statsByCountry: null,
+    historicalData: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,10 +13,17 @@ const reducer = (state = initialState, action) => {
             const { globalStats, statsByCountry } = action.payload;
             return {
                 ...state,
-                globalStats: formatNumbers(globalStats),
+                globalStats,
                 statsByCountry
             }
 
+        case actionTypes.GET_HISTORICAL_DATA:
+            const historicalData = action.payload;
+            return {
+                ...state,
+                historicalData
+            };
+            
         default:
             return state;
     }

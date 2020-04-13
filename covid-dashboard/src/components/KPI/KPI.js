@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card/Card';
 import { connect } from 'react-redux';
+import { formatNumbers } from '../Utilities/FormatNumbers';
 
 import classes from './KPI.module.css';
 
@@ -36,7 +37,7 @@ const KPI = (props) => {
         console.log(nameMap)
         cards = Object.entries(globalStats).map(item => {
             let [name, magnitude] = [...item];
-            return <Card key={name} name={nameMap[name]} magnitude={magnitude} graphType='red' />
+            return <Card key={name} name={nameMap[name]} magnitude={formatNumbers(magnitude)} graphType='red' />
         })
     }
 

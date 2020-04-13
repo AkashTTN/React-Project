@@ -5,6 +5,7 @@ const Button = props => (
     <button
         className={[classes.Button, classes[props.btnType]].join(' ')}
         onClick={props.clicked}
+        value={props.children.toString()}
     >{props.children}</button>
 )
 
