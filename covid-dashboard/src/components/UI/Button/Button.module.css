@@ -12,6 +12,7 @@
 .Regular:focus {
     background-color: #52586A;
     color: white;
+    outline: none;
 }
 
 .Danger {
@@ -20,6 +21,6 @@
 }
 
 .Danger:focus {
-    background-color: #FFEAEB;
-    color: #FF0019;
+    background-color: #FF0019;
+    color: white;
 }

@@ -8,7 +8,6 @@ const Trends = () => {
 
     const [clickedType, setClickedType] = useState('');
 
-
     const onButtonClick = (e) => {
         setClickedType(e.target.value.toLowerCase());
     }

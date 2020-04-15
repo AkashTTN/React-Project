@@ -22,13 +22,14 @@ const App = () => {
 
   const onFetchStats = useCallback(() => dispatch(actions.getStats()), [dispatch]);
   const onFetchHistoricalData = useCallback(() => dispatch(actions.getHistoricalData()), [dispatch]);
+  const onFetchTweets = useCallback(() => dispatch(actions.getTweets()), [dispatch]);
 
+  // Setting refetch timer for stats data
   useEffect(() => {
     // Dispatch an action to fetch new stats data after every 10mins or 600000 seconds
     // console.log('useEffect ran');
     onFetchStats();
     const intervalId = setInterval(function () {
-      console.log('setting interval');
       onFetchStats();
     }, 6000000)
 
@@ -36,18 +37,31 @@ const App = () => {
 
   }, [onFetchStats]);
 
+  // Setting refetch timer for historical data
   useEffect(() => {
     // Dispatch an action to fetch new hostorical data after every 1hr
     // console.log('useEffect ran');
     onFetchHistoricalData();
     const intervalId = setInterval(function () {
-      console.log('setting interval');
       onFetchHistoricalData();
     }, 6000000)
 
     return () => clearInterval(intervalId);
 
   }, [onFetchHistoricalData]);
+
+  // Setting refetch timer for tweets data
+  useEffect(() => {
+    // Dispatch an action to fetch new hostorical data after every 1hr
+    // console.log('useEffect ran');
+    onFetchTweets();
+    const intervalId = setInterval(function () {
+      onFetchTweets();
+    }, 6000000)
+
+    return () => clearInterval(intervalId);
+
+  }, [onFetchTweets]);
 
   return (
     <div className={classes.App}>
@@ -65,7 +79,7 @@ const App = () => {
           </div>
           <div className={classes.FlexContainer} >
             <Trends />
-            <News />
+            {/* <News /> */}
           </div>
         </div>
         <div className={classes.SecondContainer}>

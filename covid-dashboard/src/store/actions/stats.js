@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+const BASE_URL = 'http://corona.lmao.ninja/';
 
 export const fetchedStats = (newStats) => {
     return {
@@ -18,10 +19,9 @@ export const fetchedHistoricalData = (newHistoricalData) => {
 
 export const getStats = () => {
     return dispatch => {
-        const baseUrl = 'http://corona.lmao.ninja/';
         const newStats = { globalStats: {}, statsByCountry: {} };
         const newGlobalStats = (
-            fetch(PROXY_URL + baseUrl + 'all')
+            fetch(PROXY_URL + BASE_URL + 'all')
                 .then(res => res.json())
                 .then(data => {
                     console.log('Stats Data Request Success');
@@ -37,7 +37,7 @@ export const getStats = () => {
         );
 
         const newStatsByCountry = (
-            fetch(PROXY_URL + baseUrl + 'countries?sort=critical')
+            fetch(PROXY_URL + BASE_URL + 'countries?sort=critical')
                 .then(res => res.json())
                 .then((data) => {
                     return data;
@@ -57,8 +57,7 @@ export const getStats = () => {
 
 export const getHistoricalData = () => {
     return dispatch => {
-        const baseUrl = 'https://corona.lmao.ninja/v2/historical?lastdays=8';
-        fetch(PROXY_URL + baseUrl)
+        fetch(PROXY_URL + BASE_URL + '/v2/historical?lastdays=8')
             .then(res => res.json())
             .then(data => {
                 console.log('Historical Data Request Success');

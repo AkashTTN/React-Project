@@ -5,3 +5,14 @@
     padding: 10px;
     margin-top: 20px;
 }
+
+.Tweets > p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #30313A;
+    font-size: 18px;
+}
+
+.Tweets p span i {
+    color: #1DA1F1;
+}

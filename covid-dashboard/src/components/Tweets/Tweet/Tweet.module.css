@@ -1,0 +1,44 @@
+footer span:first-child {
+    color: red;
+}
+
+footer span:last-child {
+    color: #54B5F5;
+}
+
+.FontSize12 {
+    font-size: 12px;
+}
+
+.FontColorGrey {
+    color: grey;
+}
+
+.MarginBottomZero {
+    margin-bottom: 0;
+}
+
+.MarginLeftAuto {
+    margin-left: auto;
+}
+
+.MarginLeft15 {
+    margin-left: 15px;
+}
+
+.Tweet > p {
+    font-size: 14px;
+}
+
+.FlexContainer {
+    display: flex;
+    align-items: center;
+}
+
+.TweetHeaderContent {
+    margin-left: 15px;
+}
+
+.TweetFooter img:nth-child(2) {
+    margin-left: 10px;
+}

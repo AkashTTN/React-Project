@@ -34,7 +34,7 @@ const KPI = (props) => {
 
     if (globalStats) {
         // console.log('inside if')
-        console.log(nameMap)
+        // console.log(nameMap)
         cards = Object.entries(globalStats).map(item => {
             let [name, magnitude] = [...item];
             return <Card key={name} name={nameMap[name]} magnitude={formatNumbers(magnitude)} graphType='red' />

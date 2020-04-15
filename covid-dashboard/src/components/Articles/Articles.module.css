@@ -1,0 +1,9 @@
+.Articles {
+    text-align: center;
+    font-weight: bold;
+}
+
+.Articles p {
+    font-size: 24px;
+    margin: 20px 0 0 0;
+}

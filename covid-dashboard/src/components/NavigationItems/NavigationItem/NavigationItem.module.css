@@ -10,4 +10,6 @@
 .NavigationItem a:active,
 .NavigationItem a.active {
     border-bottom: 3px solid red;
+    text-decoration: none;
+    color: red;
 }
