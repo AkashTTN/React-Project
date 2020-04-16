@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { formatNumbers } from '../Utilities/FormatNumbers';
 
 import 'react-circular-progressbar/dist/styles.css';
 import classes from './Recovery.module.css';
-import percentageBg from '../../assets/Images/percentage-bg.png';
 
 const Recovery = (props) => {
 
@@ -18,7 +17,7 @@ const Recovery = (props) => {
         let ratioOfRecovery = ((recovered / cases) * 100).toFixed(1);
         data = (
             <>
-                <CircularProgressbarWithChildren
+                <CircularProgressbar
                     strokeWidth="1"
                     value={ratioOfRecovery}
                     text={`${ratioOfRecovery}%`}
@@ -48,8 +47,7 @@ const Recovery = (props) => {
                         }
                     }}
                 >
-                    {/* <img src={percentageBg} alt="percentage-bg" /> */}
-                </CircularProgressbarWithChildren>
+                </CircularProgressbar>
                 <p className={classes.RecoveryData}>
                     {`${formatNumbers(cases)} Affected | ${formatNumbers(recovered)} Recovered`}
                 </p>

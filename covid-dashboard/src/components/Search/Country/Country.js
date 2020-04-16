@@ -9,11 +9,11 @@ const Country = props => {
     return (
         <div className={classes.Country} >
             <div className={classes.Data} >
-                <img src={props.flag} alt={props.countryName} />
-                <p>{props.countryName}</p>
-                <div>
-                    <span>{props.affected} Affected &#124; {props.recovered} Recovered</span>
+                <div className={classes.FlexContainer}>
+                    <img src={props.flag} alt={props.countryName} />
+                    <p className={classes.CountryName}>{props.countryName}</p>
                 </div>
+                <p>{props.affected} Affected &#124; {props.recovered} Recovered</p>
             </div>
             <div>
                 <img src={up} alt="arrow" />

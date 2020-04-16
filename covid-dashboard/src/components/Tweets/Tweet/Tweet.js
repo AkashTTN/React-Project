@@ -32,8 +32,8 @@ const Tweet = props => {
             <footer className={classes.FlexContainer} >
                 <span><img src={like} alt="likes-icon" /> {likes}</span>
                 <span className={classes.MarginLeft15}><img src={share} alt="shares-icon" /> {shares}</span>
-                <p 
-                    className={[classes.FontColorGrey, classes.FontSize12, classes.MarginBottomZero, classes.MarginLeftAuto].join(' ')} 
+                <p
+                    className={[classes.FontColorGrey, classes.FontSize12, classes.MarginBottomZero, classes.MarginLeftAuto].join(' ')}
                 >{date}</p>
             </footer>
         </div>

@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const BASE_URL = "https://newsapi.org/v2/everything";
 
 const apiConfig = {

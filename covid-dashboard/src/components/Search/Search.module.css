@@ -1,13 +1,12 @@
 .Search {
-    /* width: 25%; */
-    flex: 1;
+    flex: .5;
     padding: 10px;
     box-shadow: 0px 5px 20px #1425401A;
     border-radius: 8px;
     background-color: white;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 50vh;
+    height: 412px;
 }
 
 .search-bar-container {
@@ -36,4 +35,10 @@
 
 .search-bar-container input[type=text] {
     outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .Search {
+        flex: unset;
+    }
 }

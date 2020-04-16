@@ -1,41 +1,62 @@
 .Card {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    margin-right: 20px;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	margin-right: 20px;
 	background-color: white;
 	box-shadow: 0px 5px 20px #1425401A;
-    border-radius: 8px;
-    width: 100%;
+	border-radius: 8px;
 }
 
 .Card:first-child {
-    margin-left: 0px;
+	margin-left: 0px;
 }
 
 .Card:last-child {
-    margin-right: 0px;
+	margin-right: 0px;
 }
 
 .Data {
-    display: inline-block;
-    white-space: nowrap;
+	display: inline-block;
+	white-space: nowrap;
 }
 
 .Card img {
-	padding-left: 10px; 
+	padding-left: 10px;
 }
 
 .Card .Data span {
-    font-size: 14px;
-    color: #52586A;
-    font-weight: bolder;
+	font-size: 14px;
+	color: #52586a;
+	font-weight: bolder;
 }
 
 .Card .Data p {
-    font-size: 24px;
-    color: #30313A;
-    font-weight: bolder;
-    margin: 5px 0 0 0;
+	font-size: 24px;
+	color: #30313a;
+	font-weight: bolder;
+	margin: 5px 0 0 0;
+}
+
+@media only screen and (max-width: 997px) {
+	.Card {
+		flex: 1 1 35%;
+    }
+    
+    .Card:nth-child(2) {
+		margin-right: 0;
+	}
+}
+
+@media only screen and (max-width: 1337px) {
+	.Card {
+		margin: 10px 20px 0 0;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+	.Card {
+		margin: 0 0 20px 0;
+    }
 }

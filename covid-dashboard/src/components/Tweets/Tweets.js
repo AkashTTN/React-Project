@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classes from './Tweets.module.css';
 import Tweet from './Tweet/Tweet';
 
@@ -15,6 +15,7 @@ const Tweets = () => {
         tweets = fetchedTweets.map((tweet) => {
             return (
                 <Tweet 
+                    key={tweet.username}
                     username={tweet.username}
                     content={tweet.content}
                     date={tweet.date}
@@ -26,16 +27,10 @@ const Tweets = () => {
 
     return (
         <div className={classes.Tweets}>
-            <p>Latest Tweets <span><i class="fa fa-twitter" aria-hidden="true"></i></span></p>
+            <p>Latest Tweets <span><i className="fa fa-twitter" aria-hidden="true"></i></span></p>
             {tweets}
         </div>
     )
 }
-
-// const mapStateToProps = state => {
-//     return {
-//         tweets: state.tweets.tweets
-//     };
-// }
 
 export default Tweets;

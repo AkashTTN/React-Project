@@ -18,3 +18,13 @@
     color: #52586A;
     margin: 20px 0 0 0;
 }
+
+
+@media only screen and (max-width: 1024px) {
+    .Recovery {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

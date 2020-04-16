@@ -10,7 +10,6 @@ import classes from './Articles.module.css';
 const Articles = props => {
 
     const [fetchedArticles, setFetchedArticles] = useState(props.articles);
-    console.log(fetchedArticles);
     useEffect(() => {
         setFetchedArticles(props.articles);
     }, [props.articles]);
@@ -46,7 +45,7 @@ const Articles = props => {
                     title={title}
                     description={description}
                     url={url}
-                    date={publishedAt}
+                    date={new Date(publishedAt).toDateString()}
                 />
             );
         })

@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 
 const twitterUsers = ['who', 'realDonaldTrump', 'ndmaindia'];
 
-const BASE_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+// const BASE_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
 
 const RSS_URL = 'https://e1yr-twitfeed-v1.p.rapidapi.com/feed.api';
 
@@ -33,11 +33,7 @@ export const getTweets = () => {
                     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
                     .then((data) => {
 
-                        console.log('RSS Data', data);
-
                         const item = data.querySelectorAll("item")[0];
-
-                        console.log('Recent Tweet', item);
 
                         const tweet = {
                             username: user,
@@ -45,8 +41,6 @@ export const getTweets = () => {
                             date: new Date(item.querySelector('pubDate').innerHTML).toDateString().split(' ').slice(1, 3).join(' '),
                             linkToTweet: item.querySelector('link').innerHTML
                         };
-
-                        console.log('tweet object', tweet);
 
                         tweets.push(tweet);
 
@@ -100,7 +94,7 @@ export const getTweets = () => {
 //             );
 //         })
 
-//         Promise.all(...promises)
+//         Promise.all(promises)
 //             .then(() => {
 //                 dispatch(fetchedTweets(tweets));
 //             })

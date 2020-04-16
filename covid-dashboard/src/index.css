@@ -12,7 +12,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: #F7F7F7; */
+  /* margin: 30px; */
 }
+
+/* body * { border: 1px solid red; } */
+/* add a border to all other elements on the page */
+
+/* body * { outline: 1px solid red; } */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

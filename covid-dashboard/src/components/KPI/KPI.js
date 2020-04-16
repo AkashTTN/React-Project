@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Card from './Card/Card';
 import { connect } from 'react-redux';
 import { formatNumbers } from '../Utilities/FormatNumbers';
@@ -22,20 +22,12 @@ const KPI = (props) => {
     //     )
     // }
 
-    const [globalStats, setGlobalStats]  = useState(props.globalStats);
-
-    useEffect(() => {
-        setGlobalStats(props.globalStats);
-    }, [props.globalStats]);
-
     // console.log(globalStats);
 
-    let cards = [];
+    let cards = <p>Waiting for data...</p>;
 
-    if (globalStats) {
-        // console.log('inside if')
-        // console.log(nameMap)
-        cards = Object.entries(globalStats).map(item => {
+    if (props.globalStats) {
+        cards = Object.entries(props.globalStats).map(item => {
             let [name, magnitude] = [...item];
             return <Card key={name} name={nameMap[name]} magnitude={formatNumbers(magnitude)} graphType='red' />
         })
@@ -43,7 +35,7 @@ const KPI = (props) => {
 
     return (
         <div className={classes.KPI}>
-            {cards ? cards : <p>Waiting for data...</p>}
+            {cards}
         </div>
     )
 }

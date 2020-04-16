@@ -16,3 +16,18 @@
 .Tweets p span i {
     color: #1DA1F1;
 }
+
+@media only screen and (max-width: 1024px) {
+    .Tweets {
+        flex: 3;
+        margin-top: 0;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Tweets {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+}
