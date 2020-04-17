@@ -40,7 +40,7 @@ export const getStats = () => {
             fetch(PROXY_URL + BASE_URL + '/countries?sort=critical')
                 .then(res => res.json())
                 .then((data) => {
-                    if(Array.isArray(data)) {
+                    if (Array.isArray(data)) {
                         return data;
                     } else {
                         throw new Error(data);
@@ -54,19 +54,27 @@ export const getStats = () => {
                 newStats['globalStats'] = values[0];
                 newStats['statsByCountry'] = values[1];
                 dispatch(fetchedStats(newStats));
+                dispatch({ type: actionTypes.GET_STATS_SUCCESS })
             })
+            .catch(
+                dispatch({ type: actionTypes.GET_STATS_FAILED })
+            )
 
     }
 }
 
 export const getHistoricalData = () => {
     return dispatch => {
-        fetch(PROXY_URL + BASE_URL + '/historical?lastdays=8')
+        fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=8')
             .then(res => res.json())
             .then(data => {
                 console.log('Historical Data Request Success');
                 dispatch(fetchedHistoricalData(data));
+                dispatch({ type: actionTypes.GET_HISTORICAL_DATA_SUCCESS })
             })
-            .catch(err => console.log('ERROR fetching historical data', err))
+            .catch(err => {
+                console.log('ERROR fetching historical data', err)
+                dispatch({ type: actionTypes.GET_HISTORICAL_DATA_FAILED })
+            })
     }
 }

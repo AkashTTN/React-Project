@@ -6,10 +6,12 @@
     outline: none;
     cursor: pointer;
     padding: 10px;
+    font-size: 14px;
     font-weight: bold;
 }
 
-.Regular:focus {
+.Regular:focus,
+.Active {
     background-color: #52586A;
     color: white;
     outline: none;
@@ -23,4 +25,11 @@
 .Danger:focus {
     background-color: #FF0019;
     color: white;
+}
+
+@media only screen and (max-width: 550px) {
+    .Button {
+        padding: 5px;
+        font-size: 12px;
+    }
 }

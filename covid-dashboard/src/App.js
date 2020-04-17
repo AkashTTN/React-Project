@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import React from 'react';
 import Home from './components/Home/Home';
 import Articles from './components/Articles/Articles';
@@ -14,9 +14,11 @@ const App = () => {
         <div className={classes.NavContainer} >
           <NavigationItems />
         </div>
-        <Route path="/" exact component={Home} />
-        <Route path="/faqs" component={FAQS} />
-        <Route path="/help-links" component={Articles} />
+        <Switch>
+          <Route path="/faqs" component={FAQS} />
+          <Route path="/help-links" component={Articles} />
+          <Route path="/" component={Home} />
+        </Switch>
         <Redirect to="/" />
       </BrowserRouter>
     </>

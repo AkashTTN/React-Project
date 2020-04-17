@@ -1,15 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import classes from './Tweets.module.css';
 import Tweet from './Tweet/Tweet';
+import { connect } from 'react-redux';
 
-const Tweets = () => {
+import classes from './Tweets.module.css';
+
+const Tweets = (props) => {
 
     const fetchedTweets = useSelector((state) => {
         return state.tweets.tweets;
     });
 
     let tweets = <p>Loading...</p>;
+
+    if(!props.status) {
+        tweets = <p>Something went wrong</p>
+    }
 
     if(fetchedTweets) {
         tweets = fetchedTweets.map((tweet) => {
@@ -33,4 +39,10 @@ const Tweets = () => {
     )
 }
 
-export default Tweets;
+const mapStateToProps = state => {
+    return {
+        status: state.status.tweets
+    };
+}
+
+export default connect(mapStateToProps)(Tweets);

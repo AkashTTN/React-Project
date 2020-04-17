@@ -74,7 +74,7 @@ const Home = () => {
                 </div>
                 <div className={classes.FlexContainer} >
                     <Trends />
-                    {/* <News /> */}
+                    <News />
                 </div>
             </div>
             <div className={classes.SecondContainer}>

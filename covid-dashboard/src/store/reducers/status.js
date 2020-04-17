@@ -9,6 +9,30 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.GET_HISTORICAL_DATA_SUCCESS:
+            return {
+                ...state,
+                stats: { ...state.stats, 'Historical Data': true }
+            };
+
+        case actionTypes.GET_STATS_SUCCESS:
+            return {
+                ...state,
+                stats: { ...state.stats, 'Stats': true }
+            };
+
+        case actionTypes.GET_ARTICLES_SUCCESS:
+            return {
+                ...state,
+                articles: true
+            };
+
+        case actionTypes.GET_TWEETS_SUCCESS:
+            return {
+                ...state,
+                tweets: true
+            };
+
         case actionTypes.GET_HISTORICAL_DATA_FAILED:
             return {
                 ...state,

@@ -19,8 +19,7 @@
     margin: 20px 0 0 0;
 }
 
-
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1075px) {
     .Recovery {
         display: flex;
         flex-direction: column;

@@ -1,12 +1,21 @@
 import React from 'react';
-import classes from './Button.module.css';
+import inputClasses from './Button.module.css';
 
-const Button = props => (
-    <button
-        className={[classes.Button, classes[props.btnType]].join(' ')}
-        onClick={props.clicked}
-        value={props.children.toString()}
-    >{props.children}</button>
-)
+const Button = props => {
+
+    let classes = [inputClasses.Button, inputClasses[props.btnType]];
+
+    if (props.isActive) {
+        classes.push(inputClasses.Active);
+    }
+
+    return (
+        <button
+            className={classes.join(' ')}
+            onClick={props.clicked}
+            value={props.children.toString()}
+        >{props.children}</button>
+    )
+}
 
 export default Button;

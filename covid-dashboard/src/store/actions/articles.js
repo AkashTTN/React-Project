@@ -27,14 +27,16 @@ export const getArticles = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                if(data.totalResults >= 20) {
-                    dispatch(fetchedArticles(data.articles.slice(0,20)));
+                if (data.totalResults >= 20) {
+                    dispatch(fetchedArticles(data.articles.slice(0, 20)));
                 } else {
                     dispatch(fetchedArticles(data.articles));
                 }
+                dispatch({ type: actionTypes.GET_ARTICLES_SUCCESS })
             })
             .catch(err => {
                 console.log('error fetching articles', err);
+                dispatch({ type: actionTypes.GET_ARTICLES_FAILED });
             })
     }
 }

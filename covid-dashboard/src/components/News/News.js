@@ -1,95 +1,132 @@
-// import React, {useState} from 'react';
-// import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getArticles } from '../../store/actions/index';
 
-// import Button from '../UI/Button/Button';
+import Button from '../UI/Button/Button';
 
-// import classes from './News.module.css';
+import classes from './News.module.css';
 
-// import {
-//     Carousel,
-//     CarouselItem,
-//     CarouselControl,
-//     CarouselIndicators,
-//     CarouselCaption
-// } from 'reactstrap';
+import {
+    Carousel,
+    CarouselItem,
+    CarouselControl,
+    CarouselIndicators
+} from 'reactstrap';
 
 
-// const News = (props) => {
+const News = (props) => {
+    
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [animating, setAnimating] = useState(false);
+    
+    const history = useHistory();
 
-//     const [activeIndex, setActiveIndex] = useState(0);
-//     const [animating, setAnimating] = useState(false);
+    useEffect(() => {
+        props.onFetchArticles();
+    }, [props.onFetchArticles]);
 
-//     const next = () => {
-//         if (animating) return;
-//         const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-//         setActiveIndex(nextIndex);
-//     }
+    const next = () => {
+        if (animating) return;
+        const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+        setActiveIndex(nextIndex);
+    }
 
-//     const previous = () => {
-//         if (animating) return;
-//         const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-//         setActiveIndex(nextIndex);
-//     }
+    const previous = () => {
+        if (animating) return;
+        const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+        setActiveIndex(nextIndex);
+    }
 
-//     const goToIndex = (newIndex) => {
-//         if (animating) return;
-//         setActiveIndex(newIndex);
-//     }
+    const goToIndex = (newIndex) => {
+        if (animating) return;
+        setActiveIndex(newIndex);
+    }
 
-//     const slides = items.map((item) => {
-//         return (
-//             <CarouselItem
-//                 onExiting={() => setAnimating(true)}
-//                 onExited={() => setAnimating(false)}
-//                 key={item.src}
-//             >
-//                 <img src={item.src} alt={item.altText} />
-//                 <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-//             </CarouselItem>
-//         );
-//     });
+    const onClickHandler = () => {
+        history.push('/help-links');
+    }
 
-//     onButtonClick = () => {
-//         props.history.push('/help-links');
-//     }
+    let items = null;
+    let slides = null;
+    let carousel = null;
 
-//     return (
-//         <Carousel
-//             className={classes.News}
-//             activeIndex={activeIndex}
-//             next={next}
-//             previous={previous}
-//         >
-//             <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-//             {slides}
-//             <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-//             <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-//         </Carousel>
-//     );
+    if (props.articles) {
+        items = props.articles.slice(0, 3);
+        slides = items.map((item, index) => {
+            return (
+                <CarouselItem
+                    onExiting={() => setAnimating(true)}
+                    onExited={() => setAnimating(false)}
+                    key={index}
+                >
+                    <div className={classes.NewsImage}>
+                        <img src={item.urlToImage} alt="article-image" />
+                    </div>
+                    <div className={classes.NewsData}>
+                        <Button
+                            btnType="Danger"
+                            clicked={onClickHandler}
+                        >
+                            News &amp; Updates
+                        </Button>
+                        <p className={classes.NewsDataHeading} >{item.title}</p>
+                        <p onClick={onClickHandler}>Read More <span><i className="fa fa-arrow-right" aria-hidden="true"></i></span></p>
+                    </div>
+                </CarouselItem>
+            );
+        });
 
-//     // return (
-//     //     <div className={classes.News}>
-//     //         <Carousel />
+        carousel = (
+            <Carousel
+                className={classes.News}
+                activeIndex={activeIndex}
+                next={next}
+                previous={previous}
+            >
+                <CarouselIndicators className={classes.Indicators} items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+                {slides}
+                {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} /> */}
+                {/* <CarouselControl direction="next" directionText="Next" onClickHandler={next} /> */}
+            </Carousel>
+        )
+    }
 
-//     //         <div className={classes.NewsImage}>
-//     //         </div>
-//     //         <div className={classes.NewsData}>
-//     //             <Button
-//     //                 btnType="Danger"
-//     //                 clicked={onButtonClick}
-//     //             >
-//     //                 News &amp; Updates
-//     //             </Button>
-//     //             <p>Read More <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></p>
-//     //         </div>
-//     //     </div>
-//     // )
-// }
+    return (
+        <>
+            {carousel}
+        </>
+    );
 
-// const mapStateToProps = (state) => {
-//     return {
-//         news: state.news
-//     };
-// }
+    // return (
+    //     <div className={classes.News}>
+    //         <Carousel />
 
-// export default connect(mapStateToProps)(News);
+    //         <div className={classes.NewsImage}>
+    //         </div>
+    //         <div className={classes.NewsData}>
+    //             <Button
+    //                 btnType="Danger"
+    //                 clicked={onButtonClick}
+    //             >
+    //                 News &amp; Updates
+    //             </Button>
+    //             <p>Read More <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></p>
+    //         </div>
+    //     </div>
+    // )
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchArticles: () => dispatch(getArticles())
+    };
+}
+
+const mapStateToProps = (state) => {
+    return {
+        articles: state.news.articles
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);

@@ -6,15 +6,18 @@ import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 
 import classes from './Map.module.css';
 
-const Map = (props) => {
 
+const Map = (props) => {
+    
     let map = null;
 
     useEffect(() => {
+
         return () => {
+            console.log('UNMOUNT', map);
             map && map.dispose();
         }
-    }, [map]);
+    }, []);
 
     useEffect(() => {
         if (props.statsByCountry) {

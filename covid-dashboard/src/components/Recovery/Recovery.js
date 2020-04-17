@@ -12,7 +12,7 @@ const Recovery = (props) => {
 
     if (props.globalStats) {
 
-        let { cases, recovered } = { ...props.globalStats };
+        let { cases, recovered } = props.globalStats;
 
         let ratioOfRecovery = ((recovered / cases) * 100).toFixed(1);
         data = (

@@ -7,24 +7,12 @@ import classes from './Search.module.css';
 
 const Search = (props) => {
 
-    // const statsByCountry = useSelector((state) => {
-    //     return state.stats.statsByCountry;
-    // });
     const [enteredFilter, setEnteredFilter] = useState('');
     const [statsByCountry, setStatsByCountry] = useState(props.statsByCountry);
-    // console.log(props.statsByCountry[1])
-    // const [render, setRender] = useState(false);
 
     const inputRef = useRef();
 
     let country = <p>Waiting for data...</p>;
-    // let statsByCountry;
-    // if(props.statsByCountry == undefined) {
-    //     statsByCountry = props.statsByCountry;
-    // } else {
-    //     statsByCountry = [...props.statsByCountry];
-    // }
-
 
     if (statsByCountry) {
         country = statsByCountry.map((country) => {
@@ -49,12 +37,9 @@ const Search = (props) => {
         if (indexOfSearchedCountry !== -1) {
             const updatedStatsByCountry = [...statsByCountry];
             let [searchedCountry] = updatedStatsByCountry.splice(indexOfSearchedCountry, 1);
-            console.log(searchedCountry);
             updatedStatsByCountry.unshift(searchedCountry);
-            console.log(updatedStatsByCountry);
             setStatsByCountry(updatedStatsByCountry);
         }
-        // setRender(true);
 
     }, [statsByCountry]);
 
@@ -85,6 +70,7 @@ const Search = (props) => {
                     ref={inputRef}
                     value={enteredFilter}
                     onChange={(e) => setEnteredFilter(e.target.value)}
+                    onKeyUp
                     id="countryToSearch"
                     type="text"
                     placeholder="Search your country"

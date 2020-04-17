@@ -53,7 +53,15 @@ export const getTweets = () => {
 
         Promise.all(promises)
             .then(() => {
+                console.log('success dispatch')
                 dispatch(fetchedTweets(tweets));
+                dispatch({ type: actionTypes.GET_TWEETS_SUCCESS })
+            })
+            .catch(() => {
+                console.log('fail dispatch')
+                dispatch({
+                    type: actionTypes.GET_TWEETS_FAILED
+                })
             })
     }
 
