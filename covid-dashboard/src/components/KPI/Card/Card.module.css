@@ -1,8 +1,9 @@
 .Card {
 	flex: 1;
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	padding: 15px;
+	padding: 10px;
 	margin-right: 20px;
 	background-color: white;
 	box-shadow: 0px 5px 20px #1425401A;
@@ -18,12 +19,11 @@
 }
 
 .Data {
-	display: inline-block;
 	white-space: nowrap;
 }
 
-.Card img {
-	padding-left: 10px;
+.Data img {
+	margin-left: 10px;
 }
 
 .Card .Data span {
@@ -39,6 +39,12 @@
 	margin: 5px 0 0 0;
 }
 
+@media only screen and (max-width: 1337px) {
+	.Card {
+		margin: 10px 20px 0 0;
+	}
+}
+
 @media only screen and (max-width: 997px) {
 	.Card {
 		flex: 1 1 35%;
@@ -49,13 +55,7 @@
 	}
 }
 
-@media only screen and (max-width: 1337px) {
-	.Card {
-		margin: 10px 20px 0 0;
-    }
-}
-
-@media only screen and (max-width: 499px) {
+@media only screen and (max-width: 508px) {
 	.Card {
 		margin: 0 0 20px 0;
     }
