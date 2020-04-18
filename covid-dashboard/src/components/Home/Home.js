@@ -1,4 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
+import {connect} from 'react-redux';
+
 import KPI from '../KPI/KPI';
 import Search from '../Search/Search';
 import Trends from '../Trends/Trends';
@@ -12,7 +14,7 @@ import { useDispatch } from 'react-redux';
 
 import classes from './Home.module.css';
 
-const Home = () => {
+const Home = ({showCountry}) => {
     console.log('App Mounted');
     // const globaState = useContext(store);
     // const { dispatch } = globaState;
@@ -40,14 +42,16 @@ const Home = () => {
     useEffect(() => {
         // Dispatch an action to fetch new hostorical data after every 1hr
         // console.log('useEffect ran');
-        onFetchHistoricalData();
-        const intervalId = setInterval(function () {
+        if(!showCountry) {
             onFetchHistoricalData();
-        }, 6000000)
+            const intervalId = setInterval(function () {
+                onFetchHistoricalData();
+            }, 6000000)
+    
+            return () => clearInterval(intervalId);
+        }
 
-        return () => clearInterval(intervalId);
-
-    }, [onFetchHistoricalData]);
+    }, [onFetchHistoricalData, showCountry]);
 
     // Setting refetch timer for tweets data
     useEffect(() => {
@@ -87,4 +91,10 @@ const Home = () => {
     );
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        showCountryMode: state.stats.showCountry.mode
+    }
+}
+
+export default connect(mapStateToProps)(Home);

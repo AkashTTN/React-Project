@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Button from '../UI/Button/Button';
 import Graph from './Graph/Graph';
 
 import classes from './Trends.module.css';
 
-const Trends = () => {
+const Trends = (props) => {
 
     const [clickedType, setClickedType] = useState('confirmed');
 
@@ -58,10 +59,15 @@ const Trends = () => {
                     <Button btnType='Regular' isActive={clickedType === 'deceased'} clicked={onButtonClick} >Deceased</Button>
                 </ul>
             </header>
-            <Graph dataKey={clickedType} />
+            {props.error ? <Graph dataKey={clickedType} /> : <p>Somethine went wrong</p>}
         </div>
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        error: state.status.stats['Historical Data']
+    };
+}
 
-export default Trends;
+export default connect(mapStateToProps)(Trends);

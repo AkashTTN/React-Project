@@ -26,7 +26,7 @@ const FAQ = props => {
                     <p>{question}</p>
                 </ListGroupItemHeading>
                 <ListGroupItemText>
-                    <p>{answer}</p>
+                    {answer}
                 </ListGroupItemText>
             </ListGroupItem>
         );

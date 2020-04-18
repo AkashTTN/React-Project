@@ -126,9 +126,17 @@ const Graph = (props) => {
 }
 
 const mapStateToProps = state => {
+
+    if(state.stats.showCountry.mode && state.stats.showCountry.historicalData) {
+        return {
+            historicalData: state.stats.showCountry.historicalData
+        };
+    }
+
     return {
         historicalData: state.stats.historicalData
     };
+
 }
 
 export default connect(mapStateToProps)(Graph);

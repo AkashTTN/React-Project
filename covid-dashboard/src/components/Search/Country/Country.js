@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import classes from './Country.module.css';
 import up from '../../../assets/Images/Up.png';
@@ -22,4 +23,4 @@ const Country = props => {
     )
 }
 
-export default Country;
+export default connect()(Country);

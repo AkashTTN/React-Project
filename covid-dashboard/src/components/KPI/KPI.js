@@ -26,8 +26,18 @@ const KPI = (props) => {
 
     let cards = <p>Waiting for data...</p>;
 
-    if (props.globalStats) {
-        cards = Object.entries(props.globalStats).map(item => {
+    if(props.error) {
+        cards = <p>Something went wrong</p>;
+    }
+
+    if (props.stats) {
+        const stats = {
+            cases: props.stats['cases'],
+            recovered: props.stats['recovered'],
+            active: props.stats['active'],
+            deaths: props.stats['deaths']
+        };
+        cards = Object.entries(stats).map(item => {
             let [name, magnitude] = [...item];
             return <Card key={name} name={nameMap[name]} magnitude={formatNumbers(magnitude)} graphType='red' />
         })
@@ -41,9 +51,19 @@ const KPI = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        globalStats: state.stats.globalStats
+
+    if(state.stats.showCountry.mode) {
+        return {
+            stats: state.stats.showCountry.data,
+            error: state.status.stats['Stats']
+        };
     };
+
+    return {
+        stats: state.stats.globalStats,
+        error: state.status.stats['Stats']
+    };
+
 }
 
 export default connect(mapStateToProps)(KPI);

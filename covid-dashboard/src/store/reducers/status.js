@@ -4,11 +4,16 @@ const initialState = {
     articles: true,
     tweets: true,
     stats: {},
-
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.GET_COUNTRY_HISTORICAL_DATA_SUCCESS:
+            return {
+                ...state,
+                stats: { ...state.stats, 'Country Historical Data': true }
+            };
+
         case actionTypes.GET_HISTORICAL_DATA_SUCCESS:
             return {
                 ...state,
@@ -31,6 +36,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 tweets: true
+            };
+
+        case actionTypes.GET_COUNTRY_HISTORICAL_DATA_FAILED:
+            return {
+                ...state,
+                stats: { ...state.stats, 'Country Historical Data': false }
             };
 
         case actionTypes.GET_HISTORICAL_DATA_FAILED:

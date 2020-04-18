@@ -29,6 +29,10 @@ const Articles = props => {
 
     let articles = <p>Loading...</p>;
 
+    if(props.error) {
+        articles = <p>Something went wrong</p>
+    }
+
     if (fetchedArticles) {
         articles = fetchedArticles.map((article, index) => {
 
@@ -62,7 +66,8 @@ const Articles = props => {
 
 const mapStateToProps = state => {
     return {
-        articles: state.news.articles
+        articles: state.news.articles,
+        error: state.status.articles
     };
 }
 

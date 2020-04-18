@@ -1,6 +1,7 @@
 export { 
     getStats,
     getHistoricalData,
+    setCountryData
 } from './stats';
 
 export {

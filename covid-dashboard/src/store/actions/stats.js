@@ -3,6 +3,13 @@ import * as actionTypes from './actionTypes';
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const BASE_URL = 'http://corona.lmao.ninja/v2';
 
+export const setCountryData = (data) => {
+    return {
+        type: actionTypes.SET_COUNTRY_DATA,
+        payload: data
+    }
+}
+
 export const fetchedStats = (newStats) => {
     return {
         type: actionTypes.GET_STATS,
@@ -10,11 +17,20 @@ export const fetchedStats = (newStats) => {
     };
 }
 
-export const fetchedHistoricalData = (newHistoricalData) => {
+export const fetchedHistoricalData = (newHistoricalData, showCountry=null) => {
+
+    if(showCountry) {
+        return {
+            type: actionTypes.GET_COUNTRY_HISTORICAL_DATA,
+            payload: newHistoricalData
+        }
+    } 
+
     return {
         type: actionTypes.GET_HISTORICAL_DATA,
         payload: newHistoricalData
     }
+
 }
 
 export const getStats = () => {
@@ -63,18 +79,32 @@ export const getStats = () => {
     }
 }
 
-export const getHistoricalData = () => {
+export const getHistoricalData = (country = null) => {
     return dispatch => {
-        fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=8')
-            .then(res => res.json())
-            .then(data => {
-                console.log('Historical Data Request Success');
-                dispatch(fetchedHistoricalData(data));
-                dispatch({ type: actionTypes.GET_HISTORICAL_DATA_SUCCESS })
-            })
-            .catch(err => {
-                console.log('ERROR fetching historical data', err)
-                dispatch({ type: actionTypes.GET_HISTORICAL_DATA_FAILED })
-            })
+        if (country) {
+            fetch(PROXY_URL + BASE_URL + `/historical/${country}?lastdays=8`)
+                .then(res => res.json())
+                .then(({timeline}=null) => {
+                    console.log('Historical Country Data Request Success');
+                    dispatch(fetchedHistoricalData(timeline, true));
+                    dispatch({ type: actionTypes.GET_COUNTRY_HISTORICAL_DATA_SUCCESS })
+                })
+                .catch(err => {
+                    console.log('ERROR fetching historical data', err)
+                    dispatch({ type: actionTypes.GET_COUNTRY_HISTORICAL_DATA_FAILED })
+                })
+        } else {
+            fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=8')
+                .then(res => res.json())
+                .then(data => {
+                    console.log('Historical Data Request Success');
+                    dispatch(fetchedHistoricalData(data));
+                    dispatch({ type: actionTypes.GET_HISTORICAL_DATA_SUCCESS })
+                })
+                .catch(err => {
+                    console.log('ERROR fetching historical data', err)
+                    dispatch({ type: actionTypes.GET_HISTORICAL_DATA_FAILED })
+                })
+        }
     }
 }

@@ -31,7 +31,7 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 1075px) {
+@media only screen and (max-width: 1250px) {
     .BodyContainer {
         flex-direction: column;
     }
@@ -59,9 +59,7 @@
     .FlexContainer:nth-child(2) {
         flex-direction: column;
     }
-}
 
-@media only screen and (max-width: 768px) {
     .SecondContainer .FlexContainer {
         flex-direction: column;
     }

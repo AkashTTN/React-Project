@@ -10,9 +10,9 @@ const Recovery = (props) => {
 
     let data = null;
 
-    if (props.globalStats) {
+    if (props.stats) {
 
-        let { cases, recovered } = props.globalStats;
+        let { cases, recovered } = props.stats;
 
         let ratioOfRecovery = ((recovered / cases) * 100).toFixed(1);
         data = (
@@ -65,8 +65,15 @@ const Recovery = (props) => {
 
 
 const mapStateToProps = state => {
+
+    if(state.stats.showCountry.mode) {
+        return {
+            stats: state.stats.showCountry.data
+        };
+    }
+
     return {
-        globalStats: state.stats.globalStats
+        stats: state.stats.globalStats
     };
 }
 

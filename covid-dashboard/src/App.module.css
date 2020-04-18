@@ -1,4 +1,5 @@
 .NavContainer {
     max-width: 1400px;
     margin: auto;
+    position: relative;
 }

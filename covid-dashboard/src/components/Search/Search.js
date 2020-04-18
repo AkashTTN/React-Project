@@ -4,6 +4,7 @@ import Country from './Country/Country';
 import { formatNumbers } from '../Utilities/FormatNumbers';
 
 import classes from './Search.module.css';
+import { getHistoricalData, setCountryData } from '../../store/actions';
 
 const Search = (props) => {
 
@@ -13,6 +14,10 @@ const Search = (props) => {
     const inputRef = useRef();
 
     let country = <p>Waiting for data...</p>;
+
+    if(props.error) {
+        country = <p>Something went wrong</p>;
+    }
 
     if (statsByCountry) {
         country = statsByCountry.map((country) => {
@@ -36,9 +41,12 @@ const Search = (props) => {
 
         if (indexOfSearchedCountry !== -1) {
             const updatedStatsByCountry = [...statsByCountry];
-            let [searchedCountry] = updatedStatsByCountry.splice(indexOfSearchedCountry, 1);
-            updatedStatsByCountry.unshift(searchedCountry);
+            let [searchedCountryData] = updatedStatsByCountry.splice(indexOfSearchedCountry, 1);
+            updatedStatsByCountry.unshift(searchedCountryData);
             setStatsByCountry(updatedStatsByCountry);
+
+            props.onSetCountryData(searchedCountryData);
+            props.onFetchHistoricalData(countryToSearch);
         }
 
     }, [statsByCountry]);
@@ -70,7 +78,6 @@ const Search = (props) => {
                     ref={inputRef}
                     value={enteredFilter}
                     onChange={(e) => setEnteredFilter(e.target.value)}
-                    onKeyUp
                     id="countryToSearch"
                     type="text"
                     placeholder="Search your country"
@@ -83,8 +90,16 @@ const Search = (props) => {
 
 const mapStateToProps = state => {
     return {
-        statsByCountry: state.stats.statsByCountry
+        statsByCountry: state.stats.statsByCountry,
+        error: state.status.stats['Stats']
     };
 }
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetCountryData: (data) => dispatch(setCountryData(data)),
+        onFetchHistoricalData: (countryName) => dispatch(getHistoricalData(countryName))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
