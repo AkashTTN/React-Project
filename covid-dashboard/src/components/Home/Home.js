@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 
 import classes from './Home.module.css';
 
-const Home = ({ showCountry }) => {
+const Home = ({ showCountryMode }) => {
     console.log('App Mounted');
     // const globaState = useContext(store);
     // const { dispatch } = globaState;
@@ -42,7 +42,7 @@ const Home = ({ showCountry }) => {
     useEffect(() => {
         // Dispatch an action to fetch new hostorical data after every 1hr
         // console.log('useEffect ran');
-        if (!showCountry) {
+        if (!showCountryMode) {
             onFetchHistoricalData();
             const intervalId = setInterval(function () {
                 onFetchHistoricalData();
@@ -51,7 +51,7 @@ const Home = ({ showCountry }) => {
             return () => clearInterval(intervalId);
         }
 
-    }, [onFetchHistoricalData, showCountry]);
+    }, [onFetchHistoricalData, showCountryMode]);
 
     // Setting refetch timer for tweets data
     useEffect(() => {

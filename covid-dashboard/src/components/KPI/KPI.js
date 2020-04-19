@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from './Card/Card';
 import { connect } from 'react-redux';
-import { formatNumbers } from '../Utilities/FormatNumbers';
+import { formatNumbers, getTrendStatus } from '../Utilities';
+import { getPreviousDayData } from '../../store/actions';
 
 import classes from './KPI.module.css';
 
@@ -26,20 +27,26 @@ const KPI = (props) => {
 
     let cards = <p>Waiting for data...</p>;
 
-    if(props.error) {
+    if (props.error) {
         cards = <p>Something went wrong</p>;
     }
 
     if (props.stats) {
         const stats = {
-            cases: props.stats['cases'],
-            recovered: props.stats['recovered'],
-            active: props.stats['active'],
-            deaths: props.stats['deaths']
+            cases: [props.stats['cases'], props.stats['isCasesIncreasing']],
+            recovered: [props.stats['recovered'], props.stats['isRecoveredIncreasing']],
+            active: [props.stats['active'], props.stats['isActiveIncreasing']],
+            deaths: [props.stats['deaths'], props.stats['isDeathsIncreasing']],
         };
+
         cards = Object.entries(stats).map(item => {
-            let [name, magnitude] = [...item];
-            return <Card key={name} name={nameMap[name]} magnitude={formatNumbers(magnitude)} graphType='red' />
+            let [prop, value] = [...item];
+            return <Card
+                key={prop}
+                name={nameMap[prop]}
+                magnitude={formatNumbers(value[0])}
+                increasing={value[1]}
+            />
         })
     }
 
@@ -52,11 +59,24 @@ const KPI = (props) => {
 
 const mapStateToProps = (state) => {
 
-    if(state.stats.showCountry.mode) {
+    const { stats: { showCountry }, status } = state;
+
+    if (showCountry.mode) {
+
+        // const previousDayData = getPreviousDayData(showCountry.data.country);
+
+        // const trendStatus = getTrendStatus(showCountry.data, previousDayData);
+
+        // return {
+        //     stats: {...showCountry.data, ...trendStatus},
+        //     error: status.stats['Stats']
+        // };
+
         return {
-            stats: state.stats.showCountry.data,
-            error: state.status.stats['Stats']
+            stats: showCountry.data,
+            error: status.stats['Stats']
         };
+        
     };
 
     return {

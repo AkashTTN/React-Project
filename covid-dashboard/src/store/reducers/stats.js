@@ -14,6 +14,15 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
+        case actionTypes.SET_COUNTRY_MODE:
+            return {
+                ...state,
+                showCountry: {
+                    ...state.showCountry,
+                    mode: true
+                }
+            };
+
         case actionTypes.SET_WORLD:
             return {
                 ...state,
@@ -28,7 +37,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 showCountry: {
                     ...state.showCountry,
-                    mode: true,
                     data: action.payload
                 }
             };

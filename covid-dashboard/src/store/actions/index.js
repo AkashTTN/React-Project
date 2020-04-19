@@ -1,7 +1,8 @@
 export { 
     getStats,
+    getPreviousDayData,
     getHistoricalData,
-    setCountryData,
+    setCountryMode,
     setWorld
 } from './stats';
 

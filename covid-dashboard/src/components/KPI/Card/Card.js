@@ -10,16 +10,24 @@ const Card = props => (
     <div className={classes.Card}>
         <div className={classes.Data} >
             <span>{props.name}</span>
-            <img
-                src={props.graphType === 'red' ? up : down}
-                alt="arrow"
-            />
+            {
+                props.increasing == null
+                    ? null
+                    : <img
+                        src={props.increasing ? up : down}
+                        alt="arrow"
+                    />
+            }
             <p>{props.magnitude}</p>
         </div>
-        <img
-            src={props.graphType === 'red' ? redGraph : greenGraph}
-            alt='kpi'
-        />
+        {
+            props.increasing == null
+                ? null
+                : <img
+                    src={props.increasing ? redGraph : greenGraph}
+                    alt='kpi'
+                />
+        }
     </div>
 )
 

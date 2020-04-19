@@ -1,8 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    articles: true,
-    tweets: true,
+    articles: false,
+    tweets: false,
     stats: {},
 };
 

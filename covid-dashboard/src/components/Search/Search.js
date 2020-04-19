@@ -15,34 +15,46 @@ const Search = (props) => {
 
     let country = <p>Waiting for data...</p>;
 
-    if(props.error) {
+    if (props.error) {
         country = <p>Something went wrong</p>;
     }
 
     if (statsByCountry) {
         country = statsByCountry.map((country) => {
+
+            const {
+                country: countryName,
+                countryInfo: { flag },
+                cases,
+                recovered,
+                todayCases,
+            } = country;
+
+            const increasing = Math.abs(todayCases / cases) > Math.abs(recovered / cases)
+
             return (
                 <Country
-                    key={country.country}
-                    flag={country.countryInfo.flag}
-                    countryName={country.country}
-                    affected={formatNumbers(country.cases)}
-                    recovered={formatNumbers(country.recovered)}
+                    key={countryName}
+                    flag={flag}
+                    countryName={countryName}
+                    affected={formatNumbers(cases)}
+                    recovered={formatNumbers(recovered)}
+                    increasing={increasing}
                 />
             )
         })
     }
 
     const onSearchCountryHandler = useCallback(countryName => {
-        let countryToSearch = countryName.toLowerCase();
+        let searchedCountry = countryName.toLowerCase();
 
-        if(countryToSearch === 'world') {
+        if (searchedCountry === 'world') {
             props.onSetWorld();
             return;
         }
 
         let indexOfSearchedCountry = statsByCountry.findIndex((country) => {
-            return country.country.toLowerCase() === countryToSearch;
+            return country.country.toLowerCase() === searchedCountry;
         });
 
         if (indexOfSearchedCountry !== -1) {
@@ -51,8 +63,8 @@ const Search = (props) => {
             updatedStatsByCountry.unshift(searchedCountryData);
             setStatsByCountry(updatedStatsByCountry);
 
-            props.onSetCountryData(searchedCountryData);
-            props.onFetchHistoricalData(countryToSearch);
+            props.onSetCountryMode(searchedCountry, searchedCountryData);
+
         }
 
     }, [statsByCountry]);
@@ -84,7 +96,7 @@ const Search = (props) => {
                     ref={inputRef}
                     value={enteredFilter}
                     onChange={(e) => setEnteredFilter(e.target.value)}
-                    id="countryToSearch"
+                    id="searchedCountry"
                     type="text"
                     placeholder="Search your country"
                 />
@@ -103,9 +115,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSetCountryData: (data) => dispatch(actions.setCountryData(data)),
-        onFetchHistoricalData: (countryName) => dispatch(actions.getHistoricalData(countryName)),
-        onSetWorld: () => dispatch(actions.setWorld())
+        onSetWorld: () => dispatch(actions.setWorld()),
+        onSetCountryMode: (searchedCountry, searchedCountryData) => dispatch(actions.setCountryMode(searchedCountry, searchedCountryData))
     };
 }
 

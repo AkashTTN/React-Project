@@ -17,7 +17,7 @@ const Country = props => {
                 <p>{props.affected} Affected &#124; {props.recovered} Recovered</p>
             </div>
             <div>
-                <img src={up} alt="arrow" />
+                <img src={props.increasing ? up : down} alt="arrow" />
             </div>
         </div>
     )
