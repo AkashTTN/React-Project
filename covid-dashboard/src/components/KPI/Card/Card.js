@@ -1,8 +1,8 @@
 import React from 'react';
-import greenGraph from '../../../assets/Images/green-graph.png';
-import redGraph from '../../../assets/Images/red-graph.png'
-import down from '../../../assets/Images/Down.png';
-import up from '../../../assets/Images/Up.png'
+import greenGraph from '../../../assets/images/green-graph.png';
+import redGraph from '../../../assets/images/red-graph.png'
+import down from '../../../assets/images/Down.png';
+import up from '../../../assets/images/Up.png'
 
 import classes from './Card.module.css';
 

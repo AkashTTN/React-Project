@@ -3,7 +3,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
 
-import logo from '../../assets/Images/virus.png'
+import logo from '../../assets/images/virus.png'
 
 const NavigationItems = props => {
 

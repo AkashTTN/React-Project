@@ -1,4 +1,4 @@
-export const getTrendStatus = (currentData, previousDayGlobalStats) => {
+export const getTrendStatus = (currentData, previousDayData) => {
 
     const {
         deaths,
@@ -13,11 +13,11 @@ export const getTrendStatus = (currentData, previousDayGlobalStats) => {
     let isRecoveredIncreasing = null;
     let isCasesIncreasing = null;
 
-    if(previousDayGlobalStats) {
-        isDeathsIncreasing = Math.abs(todayDeaths / deaths) > Math.abs(previousDayGlobalStats.deaths / deaths);
-        isCasesIncreasing = cases > previousDayGlobalStats.cases;
-        isActiveIncreasing = active > (previousDayGlobalStats.cases - previousDayGlobalStats.deaths - previousDayGlobalStats.recovered);
-        isRecoveredIncreasing = recovered > previousDayGlobalStats.recovered;
+    if(previousDayData) {
+        isDeathsIncreasing = Math.abs(todayDeaths / deaths) > Math.abs(previousDayData.deaths / deaths);
+        isCasesIncreasing = cases > previousDayData.cases;
+        isActiveIncreasing = active > (previousDayData.cases - previousDayData.deaths - previousDayData.recovered);
+        isRecoveredIncreasing = recovered > previousDayData.recovered;
     }
 
     return {

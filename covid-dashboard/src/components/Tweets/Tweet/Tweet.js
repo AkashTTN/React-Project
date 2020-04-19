@@ -2,8 +2,8 @@ import React from 'react';
 
 import classes from './Tweet.module.css';
 
-import like from '../../../assets/Images/like.png';
-import share from '../../../assets/Images/share.png';
+import like from '../../../assets/images/like.png';
+import share from '../../../assets/images/share.png';
 
 const Tweet = props => {
 
