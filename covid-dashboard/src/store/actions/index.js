@@ -1,7 +1,8 @@
 export { 
     getStats,
     getHistoricalData,
-    setCountryData
+    setCountryData,
+    setWorld
 } from './stats';
 
 export {

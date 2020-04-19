@@ -28,6 +28,8 @@ footer span:last-child {
 
 .Tweet > p {
     font-size: 14px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .FlexContainer {
@@ -37,6 +39,16 @@ footer span:last-child {
 
 .TweetHeaderContent {
     margin-left: 15px;
+}
+
+.TweetHeaderContent a,
+.TweetHeaderContent a:hover,
+.TweetHeaderContent a:active {
+    text-decoration: none;
+}
+
+.TweetHeaderContent a:hover {
+    color: red;
 }
 
 .TweetFooter img:nth-child(2) {

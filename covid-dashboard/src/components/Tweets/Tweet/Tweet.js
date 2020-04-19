@@ -23,9 +23,9 @@ const Tweet = props => {
                 {/* <img src={profileImageUrl} alt="profile-image" /> */}
                 <div className={classes.TweetHeaderContent}>
                     <p className={classes.FontSize12}>{name}</p>
-                    <p className={[classes.FontColorGrey, classes.FontSize12].join(' ')} >
+                    <a href={`https://twitter.com/${username} target="_blank" `} className={[classes.FontColorGrey, classes.FontSize12].join(' ')} >
                         {username}
-                    </p>
+                    </a>
                 </div>
             </header>
             <p>{content}</p>

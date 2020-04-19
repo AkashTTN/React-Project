@@ -19,3 +19,4 @@ export const GET_TWEETS_FAILED = 'GET_TWEETS_FAILED';
 export const GET_TWEETS_SUCCESS = 'GET_TWEETS_SUCCESS'; 
 
 export const SET_COUNTRY_DATA = 'SET_COUNTRY_DATA';
+export const SET_WORLD = 'SET_WORLD';

@@ -1,9 +1,11 @@
 .Articles {
     /* text-align: center; */
     font-weight: bold;
+    max-width: 1400px;
+    margin: auto;
 }
 
-.Articles p {
+.Articles > p {
     font-size: 24px;
     margin: 20px 30px 15px 30px;
 }

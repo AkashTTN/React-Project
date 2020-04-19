@@ -42,27 +42,34 @@ const Graph = (props) => {
     const { historicalData, dataKey } = props;
 
     let chart = null;
-
+    
     useEffect(() => {
         chart && chart.dispose();
     }, []);
-
+    
     useEffect(() => {
         if (historicalData) {
-    
+            
             const data = formatData(historicalData, dataKey);
-    
+            
             chart = am4core.create(classes.ChartDiv, am4charts.XYChart);
-
+            
             chart.responsive.enabled = true;
-    
+            
+            if(dataKey === 'recovered') {
+                chart.colors.list = [ am4core.color('green') ];
+            } else {
+                chart.colors.list = [ am4core.color('red') ];
+            }
+            
+            
             // Enable chart cursor
             chart.cursor = new am4charts.XYCursor();
             chart.cursor.lineX.disabled = true;
             chart.cursor.lineY.disabled = true;
-    
+            
             chart.data = data;
-    
+            
             // Create axes
             let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
             dateAxis.dataFields.category = "Date";
@@ -71,54 +78,52 @@ const Graph = (props) => {
             dateAxis.renderer.minGridDistance = 40;
             dateAxis.tooltipDateFormat = "MMM dd, yyyy";
             dateAxis.dateFormats.setKey("day", "dd");
-    
+            
             let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    
+            valueAxis.numberFormatter.numberFormat = "#.0 a"; 
+            
             // Create series
             let series = chart.series.push(new am4charts.LineSeries());
             series.tooltipText = `{date}\n[bold font-size: 17px]${dataKey}: {valueY}[/]`;
             series.dataFields.valueY = dataKey;
             series.dataFields.dateX = "date";
-            series.strokeDasharray = 3;
-            series.strokeWidth = 2
-            series.strokeOpacity = 0.3;
-            series.strokeDasharray = "3,3"
-    
+            // series.strokeDasharray = 3;
+            // series.strokeWidth = 2
+            // series.strokeOpacity = 0.3;
+            // series.strokeDasharray = "3,3"
+            
             let bullet = series.bullets.push(new am4charts.CircleBullet());
             bullet.strokeWidth = 2;
-            bullet.stroke = am4core.color("#fff");
             bullet.setStateOnChildren = true;
             bullet.propertyFields.fillOpacity = "opacity";
             bullet.propertyFields.strokeOpacity = "opacity";
-    
+            
             let hoverState = bullet.states.create("hover");
             hoverState.properties.scale = 1.7;
-    
+            
             function createTrendLine(data) {
                 let trend = chart.series.push(new am4charts.LineSeries());
                 trend.dataFields.valueY = "value";
                 trend.dataFields.dateX = "date";
                 trend.strokeWidth = 2
-                trend.stroke = trend.fill = am4core.color("#FF6C75");
                 trend.data = data;
-    
+                
                 let bullet = trend.bullets.push(new am4charts.CircleBullet());
                 bullet.tooltipText = "{date}\n[bold font-size: 17px]value: {valueY}[/]";
                 bullet.strokeWidth = 2;
-                bullet.stroke = am4core.color("#FF6C75")
-                bullet.circle.fill = trend.stroke;
-    
+                
                 let hoverState = bullet.states.create("hover");
                 hoverState.properties.scale = 1.7;
-    
+                
                 return trend;
             };
-    
+            
             createTrendLine(data);
-    
+            
         }
-    }, [historicalData, dataKey]);
 
+    }, [historicalData, dataKey]);
+    
     return (
         <div className={classes.ChartDiv}>
         </div>

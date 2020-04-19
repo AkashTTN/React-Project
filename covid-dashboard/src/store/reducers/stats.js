@@ -14,6 +14,15 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
+        case actionTypes.SET_WORLD:
+            return {
+                ...state,
+                showCountry: {
+                    ...state.showCountry,
+                    mode: false
+                }
+            };
+
         case actionTypes.SET_COUNTRY_DATA:
             return {
                 ...state,
@@ -22,7 +31,7 @@ const reducer = (state = initialState, action) => {
                     mode: true,
                     data: action.payload
                 }
-            }
+            };
 
         case actionTypes.GET_STATS:
             const { globalStats, statsByCountry } = action.payload;
@@ -30,7 +39,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 globalStats,
                 statsByCountry
-            }
+            };
 
         case actionTypes.GET_HISTORICAL_DATA:
             return {

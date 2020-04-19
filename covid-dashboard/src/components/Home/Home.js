@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import KPI from '../KPI/KPI';
 import Search from '../Search/Search';
@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 
 import classes from './Home.module.css';
 
-const Home = ({showCountry}) => {
+const Home = ({ showCountry }) => {
     console.log('App Mounted');
     // const globaState = useContext(store);
     // const { dispatch } = globaState;
@@ -42,12 +42,12 @@ const Home = ({showCountry}) => {
     useEffect(() => {
         // Dispatch an action to fetch new hostorical data after every 1hr
         // console.log('useEffect ran');
-        if(!showCountry) {
+        if (!showCountry) {
             onFetchHistoricalData();
             const intervalId = setInterval(function () {
                 onFetchHistoricalData();
             }, 6000000)
-    
+
             return () => clearInterval(intervalId);
         }
 
@@ -68,25 +68,29 @@ const Home = ({showCountry}) => {
 
     return (
         <div className={classes.BodyContainer} >
-            <div className={classes.FirstContainer}>
-                <div className={classes.FlexContainer}>
-                    <KPI />
+            {/* <div className={classes.Container} > */}
+                <div className={classes.FirstContainer}>
+                    <div className={classes.FlexContainer}>
+                        <KPI />
+                    </div>
+                    <div className={classes.FlexContainer} >
+                        <Search />
+                        <Map />
+                    </div>
+                    <div className={classes.FlexContainer} >
+                        <Trends />
+                        <News />
+                    </div>
                 </div>
-                <div className={classes.FlexContainer} >
-                    <Search />
-                    <Map />
+                <div className={classes.SecondContainer}>
+                    <div className={classes.FlexContainer}>
+                        <Recovery />
+                        <Tweets />
+                    </div>
                 </div>
-                <div className={classes.FlexContainer} >
-                    <Trends />
-                    <News />
-                </div>
-            </div>
-            <div className={classes.SecondContainer}>
-                <div className={classes.FlexContainer}>
-                    <Recovery />
-                    <Tweets />
-                </div>
-            </div>
+            {/* </div> */}
+            {/* <div className={[classes.Footer, classes.FlexContainer]}>
+            </div> */}
         </div>
     );
 }

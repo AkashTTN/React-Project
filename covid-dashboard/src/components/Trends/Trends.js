@@ -59,7 +59,7 @@ const Trends = (props) => {
                     <Button btnType='Regular' isActive={clickedType === 'deceased'} clicked={onButtonClick} >Deceased</Button>
                 </ul>
             </header>
-            {props.error ? <Graph dataKey={clickedType} /> : <p>Somethine went wrong</p>}
+            {props.error ? <Graph dataKey={clickedType} /> : <p>Something went wrong</p>}
         </div>
     )
 }

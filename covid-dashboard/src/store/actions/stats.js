@@ -3,6 +3,12 @@ import * as actionTypes from './actionTypes';
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const BASE_URL = 'http://corona.lmao.ninja/v2';
 
+export const setWorld = () => {
+    return {
+        type: actionTypes.SET_WORLD
+    }
+}
+
 export const setCountryData = (data) => {
     return {
         type: actionTypes.SET_COUNTRY_DATA,

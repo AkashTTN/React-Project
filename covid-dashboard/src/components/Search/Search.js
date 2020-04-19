@@ -4,7 +4,7 @@ import Country from './Country/Country';
 import { formatNumbers } from '../Utilities/FormatNumbers';
 
 import classes from './Search.module.css';
-import { getHistoricalData, setCountryData } from '../../store/actions';
+import * as actions from '../../store/actions';
 
 const Search = (props) => {
 
@@ -35,6 +35,12 @@ const Search = (props) => {
 
     const onSearchCountryHandler = useCallback(countryName => {
         let countryToSearch = countryName.toLowerCase();
+
+        if(countryToSearch === 'world') {
+            props.onSetWorld();
+            return;
+        }
+
         let indexOfSearchedCountry = statsByCountry.findIndex((country) => {
             return country.country.toLowerCase() === countryToSearch;
         });
@@ -97,8 +103,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSetCountryData: (data) => dispatch(setCountryData(data)),
-        onFetchHistoricalData: (countryName) => dispatch(getHistoricalData(countryName))
+        onSetCountryData: (data) => dispatch(actions.setCountryData(data)),
+        onFetchHistoricalData: (countryName) => dispatch(actions.getHistoricalData(countryName)),
+        onSetWorld: () => dispatch(actions.setWorld())
     };
 }
 

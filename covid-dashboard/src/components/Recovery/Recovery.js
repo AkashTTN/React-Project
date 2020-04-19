@@ -8,7 +8,11 @@ import classes from './Recovery.module.css';
 
 const Recovery = (props) => {
 
-    let data = null;
+    let data = <p>Waiting for data</p>;
+
+    if(props.error) {
+        data = <p>Something went wrong</p>
+    }
 
     if (props.stats) {
 
@@ -68,12 +72,14 @@ const mapStateToProps = state => {
 
     if(state.stats.showCountry.mode) {
         return {
-            stats: state.stats.showCountry.data
+            stats: state.stats.showCountry.data,
+            error: state.status.stats['Stats']
         };
     }
 
     return {
-        stats: state.stats.globalStats
+        stats: state.stats.globalStats,
+        error: state.status.stats['Stats']
     };
 }
 
