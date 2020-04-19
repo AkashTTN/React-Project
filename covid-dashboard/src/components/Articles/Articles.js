@@ -16,10 +16,8 @@ const Articles = props => {
 
     useEffect(() => {
         // Dispatch an action to fetch new hostorical data after every 1hr
-        // console.log('useEffect ran');
         props.onFetchArticles();
         const intervalId = setInterval(function () {
-            console.log('setting interval');
             props.onFetchArticles()
         }, 6000000)
 

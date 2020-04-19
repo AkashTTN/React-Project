@@ -1,9 +1,10 @@
 import React from 'react';
+
 import NavigationItem from './NavigationItem/NavigationItem';
 
-import classes from './NavigationItems.module.css';
-
 import logo from '../../assets/images/virus.png'
+
+import classes from './NavigationItems.module.css';
 
 const NavigationItems = props => {
 

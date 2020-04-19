@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import { getArticles } from '../../store/actions/index';
 
 import Button from '../UI/Button/Button';
-
-import classes from './News.module.css';
 
 import {
     Carousel,
     CarouselItem,
     CarouselIndicators
 } from 'reactstrap';
+
+import classes from './News.module.css';
+
 
 
 const News = (props) => {

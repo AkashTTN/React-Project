@@ -1,8 +1,11 @@
 import React from 'react';
-import Card from './Card/Card';
 import { connect } from 'react-redux';
+
 import { formatNumbers, getTrendStatus } from '../Utilities';
+
 import { getPreviousDayData } from '../../store/actions';
+
+import Card from './Card/Card';
 
 import classes from './KPI.module.css';
 

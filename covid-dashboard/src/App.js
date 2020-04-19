@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import React from 'react';
-import Home from './components/Home/Home';
-import Articles from './components/Articles/Articles';
+
 import NavigationItems from './components/NavigationItems/NavigationItems';
+import Home from './components/Home/Home';
 import FAQS from './components/FAQ/FAQ';
+import Articles from './components/Articles/Articles';
 
 import classes from './App.module.css';
 

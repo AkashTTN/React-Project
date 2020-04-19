@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
-// import Articles from './components/Articles/Articles';
 import * as serviceWorker from './serviceWorker';
-// import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -14,6 +11,8 @@ import statsReducer from './store/reducers/stats';
 import articlesReducer from './store/reducers/articles';
 import tweetsReducer from './store/reducers/tweets';
 import statusReducer from './store/reducers/status';
+
+import App from './App';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,11 +31,6 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 const app = (
   <Provider store={store}>
     <App />
-    {/* <BrowserRouter>
-      <Route path="/" exact component={App} />
-      <Route path="/help-links" component={Articles} />
-      <Redirect to="/" />
-    </BrowserRouter> */}
   </Provider>
 );
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import classes from './Country.module.css';
 import up from '../../../assets/images/Up.png';
 import down from '../../../assets/images/Down.png';
+
+import classes from './Country.module.css';
 
 const Country = props => {
 

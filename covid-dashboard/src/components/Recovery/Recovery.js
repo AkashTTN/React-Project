@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CircularProgressbar } from 'react-circular-progressbar';
+
 import { formatNumbers } from '../Utilities/FormatNumbers';
 
 import 'react-circular-progressbar/dist/styles.css';

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
+
 import Country from './Country/Country';
+
 import { formatNumbers } from '../Utilities/FormatNumbers';
 
-import classes from './Search.module.css';
 import * as actions from '../../store/actions';
+
+import classes from './Search.module.css';
 
 const Search = (props) => {
 

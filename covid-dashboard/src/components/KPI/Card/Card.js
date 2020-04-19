@@ -1,4 +1,5 @@
 import React from 'react';
+
 import greenGraph from '../../../assets/images/green-graph.png';
 import redGraph from '../../../assets/images/red-graph.png'
 import down from '../../../assets/images/Down.png';

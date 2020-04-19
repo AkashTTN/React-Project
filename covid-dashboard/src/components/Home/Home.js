@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import KPI from '../KPI/KPI';
 import Search from '../Search/Search';
@@ -10,7 +11,6 @@ import Recovery from '../Recovery/Recovery';
 import Tweets from '../Tweets/Tweets';
 
 import * as actions from '../../store/actions/index';
-import { useDispatch } from 'react-redux';
 
 import classes from './Home.module.css';
 
