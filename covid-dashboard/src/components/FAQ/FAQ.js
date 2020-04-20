@@ -19,6 +19,8 @@ let data = [
 
 const FAQ = props => {
 
+    console.log('FAQS MOUNTED');
+
     let faqs = data.map(([question, answer], index) => {
         return (
             <ListGroupItem key={index} >

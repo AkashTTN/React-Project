@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -45,17 +45,12 @@ const Graph = (props) => {
     let chart = null;
     
     useEffect(() => {
-        chart && chart.dispose();
-    }, []);
-    
-    useEffect(() => {
         if (historicalData) {
             
             const data = formatData(historicalData, dataKey);
             
             chart = am4core.create(classes.ChartDiv, am4charts.XYChart);
             
-            chart.responsive.enabled = true;
             
             if(dataKey === 'recovered') {
                 chart.colors.list = [ am4core.color('green') ];
@@ -121,8 +116,10 @@ const Graph = (props) => {
             
             createTrendLine(data);
             
-        }
+            chart.responsive.enabled = true;
 
+        }
+        
     }, [historicalData, dataKey]);
     
     return (

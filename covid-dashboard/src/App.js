@@ -18,9 +18,9 @@ const App = () => {
         <Switch>
           <Route path="/faqs" component={FAQS} />
           <Route path="/help-links" component={Articles} />
-          <Route path="/" component={Home} />
+          <Route path="/" exact component={Home} />
+          <Redirect to="/" />
         </Switch>
-        <Redirect to="/" />
       </BrowserRouter>
     </>
   )

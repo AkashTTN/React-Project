@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { formatNumbers, getTrendStatus } from '../Utilities';
 
-import { getPreviousDayData } from '../../store/actions';
+import { getPreviousDayData, setTrendStatus  } from '../../store/actions';
 
 import Card from './Card/Card';
 
@@ -32,25 +32,45 @@ const KPI = (props) => {
 
     if (props.error) {
         cards = <p>Something went wrong</p>;
-    }
+    } else {
 
-    if (props.stats) {
-        const stats = {
-            cases: [props.stats['cases'], props.stats['isCasesIncreasing']],
-            recovered: [props.stats['recovered'], props.stats['isRecoveredIncreasing']],
-            active: [props.stats['active'], props.stats['isActiveIncreasing']],
-            deaths: [props.stats['deaths'], props.stats['isDeathsIncreasing']],
-        };
+        let stats = { ...props.stats };
 
-        cards = Object.entries(stats).map(item => {
-            let [prop, value] = [...item];
-            return <Card
-                key={prop}
-                name={nameMap[prop]}
-                magnitude={formatNumbers(value[0])}
-                increasing={value[1]}
-            />
-        })
+        let previousDayData = null;
+
+        if (props.mode) {
+
+            previousDayData = getPreviousDayData(stats.country);
+        } else {
+            previousDayData = getPreviousDayData();
+        }
+
+        previousDayData
+            .then((previousData) => {
+                const trendStatus = getTrendStatus(stats, previousData);
+
+                stats = { ...stats, ...trendStatus };
+
+                stats = {
+                    cases: [stats['cases'], stats['isCasesIncreasing']],
+                    recovered: [stats['recovered'], stats['isRecoveredIncreasing']],
+                    active: [stats['active'], stats['isActiveIncreasing']],
+                    deaths: [stats['deaths'], stats['isDeathsIncreasing']],
+                };
+
+                console.log(stats);
+
+                cards = Object.entries(stats).map(item => {
+                    let [prop, value] = [...item];
+                    return <Card
+                        key={prop}
+                        name={nameMap[prop]}
+                        magnitude={formatNumbers(value[0])}
+                        increasing={value[1]}
+                    />
+                })
+
+            })
     }
 
     return (
@@ -62,31 +82,19 @@ const KPI = (props) => {
 
 const mapStateToProps = (state) => {
 
-    const { stats: { showCountry }, status } = state;
-
-    if (showCountry.mode) {
-
-        // const previousDayData = getPreviousDayData(showCountry.data.country);
-
-        // const trendStatus = getTrendStatus(showCountry.data, previousDayData);
-
-        // return {
-        //     stats: {...showCountry.data, ...trendStatus},
-        //     error: status.stats['Stats']
-        // };
-
-        return {
-            stats: showCountry.data,
-            error: status.stats['Stats']
-        };
-        
-    };
-
     return {
-        stats: state.stats.globalStats,
-        error: state.status.stats['Stats']
+        mode: state.stats.showCountry.mode,
+        stats: state.stats.showCountry.mode ? state.stats.showCountry.data : state.stats.globalStats,
+        error: !state.status.stats['Stats'],
+        trendStatus: state.stats.showCountry.mode ? state.trendStatus[state.stats.showCountry.data.country] : state.trendStatus['world']
     };
 
 }
 
-export default connect(mapStateToProps)(KPI);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetTrendStatus: (country=null) => dispatch(setTrendStatus(country))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(KPI);

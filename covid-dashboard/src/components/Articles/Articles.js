@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 
 import Article from './Article/Article';
@@ -9,29 +9,34 @@ import classes from './Articles.module.css';
 
 const Articles = props => {
 
-    const [fetchedArticles, setFetchedArticles] = useState(props.articles);
-    useEffect(() => {
-        setFetchedArticles(props.articles);
-    }, [props.articles]);
+    console.log('ARTICLES MOUNTED');
+    const fetchedArticles = props.articles;
+
+    // const [fetchedArticles, setFetchedArticles] = useState(props.articles);
+
+    // useEffect(() => {
+    //     setFetchedArticles(props.articles);
+    // }, [props.articles]);
 
     useEffect(() => {
-        // Dispatch an action to fetch new hostorical data after every 1hr
-        props.onFetchArticles();
-        const intervalId = setInterval(function () {
-            props.onFetchArticles()
-        }, 6000000)
+        // Dispatch an action to fetch new articles after every 1hr
+        // If articles are already present/fetched, dont set the interval
+        if (props.error) {
+            props.onFetchArticles();
+            const intervalId = setInterval(function () {
+                props.onFetchArticles()
+            }, 6000000)
 
-        return () => clearInterval(intervalId);
+            return () => clearInterval(intervalId);
+        }
 
-    }, [props.onFetchArticles]);
+    }, [props.error]);
 
     let articles = <p>Loading...</p>;
 
-    if(props.error) {
+    if (props.error) {
         articles = <p>Something went wrong</p>
-    }
-
-    if (fetchedArticles) {
+    } else {
         articles = fetchedArticles.map((article, index) => {
 
             let {
@@ -53,6 +58,28 @@ const Articles = props => {
         })
     }
 
+    // if (fetchedArticles) {
+    //     articles = fetchedArticles.map((article, index) => {
+
+    //         let {
+    //             title,
+    //             description,
+    //             publishedAt,
+    //             url
+    //         } = article;
+
+    //         return (
+    //             <Article
+    //                 key={index}
+    //                 title={title}
+    //                 description={description}
+    //                 url={url}
+    //                 date={new Date(publishedAt).toDateString()}
+    //             />
+    //         );
+    //     })
+    // }
+
     return (
         <div className={classes.Articles}>
             <p>Articles</p>
@@ -65,7 +92,7 @@ const Articles = props => {
 const mapStateToProps = state => {
     return {
         articles: state.news.articles,
-        error: state.status.articles
+        error: !state.status.articles
     };
 }
 

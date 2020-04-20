@@ -5,7 +5,9 @@ import Tweet from './Tweet/Tweet';
 
 import classes from './Tweets.module.css';
 
-const Tweets = (props) => {
+const Tweets = React.memo((props) => {
+
+    console.log('TWEETS RENDERED', props);
 
     const fetchedTweets = useSelector((state) => {
         return state.tweets.tweets;
@@ -13,12 +15,12 @@ const Tweets = (props) => {
 
     let tweets = <p>Loading...</p>;
 
-    if(!props.status) {
+    if(props.error) {
         tweets = <p>Something went wrong</p>
     }
 
     if(fetchedTweets) {
-        tweets = fetchedTweets.map((tweet) => {
+        tweets = fetchedTweets.slice(0,2).map((tweet) => {
             return (
                 <Tweet 
                     key={tweet.username}
@@ -37,11 +39,11 @@ const Tweets = (props) => {
             {tweets}
         </div>
     )
-}
+})
 
 const mapStateToProps = state => {
     return {
-        status: state.status.tweets
+        error: !state.status.tweets
     };
 }
 

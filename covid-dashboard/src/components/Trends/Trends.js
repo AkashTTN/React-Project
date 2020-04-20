@@ -60,14 +60,14 @@ const Trends = (props) => {
                     <Button btnType='Regular' isActive={clickedType === 'deceased'} clicked={onButtonClick} >Deceased</Button>
                 </ul>
             </header>
-            {props.error ? <Graph dataKey={clickedType} /> : <p>Something went wrong</p>}
+            {props.error ? <p>Something went wrong</p> : <Graph dataKey={clickedType} />}
         </div>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        error: state.status.stats['Historical Data']
+        error: !state.status.stats['Historical Data']
     };
 }
 

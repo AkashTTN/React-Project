@@ -1,7 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-import { getTrendStatus } from '../../components/Utilities/GetTrendStatus';
-
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const BASE_URL = 'http://corona.lmao.ninja/v2';
 
@@ -56,22 +54,40 @@ export const getStats = () => {
 
         const stats = { globalStats: {}, statsByCountry: {} };
 
-        let previousDayGlobalStats = null;
+        // const globalStats = (
+        //     fetch(PROXY_URL + BASE_URL + '/all')
+        //         .then(res => res.json())
+        //         .then(data => {
 
-        fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=1')
-            .then(res => res.json())
-            .then((data) => {
+        //             console.log('Stats Data Request Success');
 
-                const { cases, deaths, recovered } = data;
+        //             const {
+        //                 cases,
+        //                 recovered,
+        //                 active,
+        //                 deaths,
+        //                 todayDeaths
+        //             } = data;
 
-                previousDayGlobalStats = {
-                    cases: Object.values(cases)[0],
-                    deaths: Object.values(deaths)[0],
-                    recovered: Object.values(recovered)[0]
-                }
+        //             let trendStatus = getTrendStatus({
+        //                 cases,
+        //                 recovered,
+        //                 active,
+        //                 deaths,
+        //                 todayDeaths
+        //             }, previousDayData);
 
-            })
-            .catch(err => console.log('Error fetching previous day global stats'))
+        //             return {
+        //                 cases,
+        //                 recovered,
+        //                 active,
+        //                 deaths,
+        //                 ...trendStatus
+        //             };
+
+        //         })
+        //         .catch(err => console.log('ERROR fetching global stats data', err))
+        // );
 
         const globalStats = (
             fetch(PROXY_URL + BASE_URL + '/all')
@@ -85,28 +101,20 @@ export const getStats = () => {
                         recovered,
                         active,
                         deaths,
-                        todayDeaths
                     } = data;
-
-                    let trendStatus = getTrendStatus({
-                        cases,
-                        recovered,
-                        active,
-                        deaths,
-                        todayDeaths
-                    }, previousDayGlobalStats);
 
                     return {
                         cases,
                         recovered,
                         active,
                         deaths,
-                        ...trendStatus
+                        trendStatus: false
                     };
 
                 })
                 .catch(err => console.log('ERROR fetching global stats data', err))
         );
+
 
         const statsByCountry = (
             fetch(PROXY_URL + BASE_URL + '/countries?sort=critical')
@@ -131,6 +139,21 @@ export const getStats = () => {
             .catch(() => {
                 dispatch({ type: actionTypes.GET_STATS_FAILED })
             })
+
+        // fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=1')
+        //     .then(res => res.json())
+        //     .then((data) => {
+
+        //         const { cases, deaths, recovered } = data;
+
+        //         previousDayGlobalStats = {
+        //             cases: Object.values(cases)[0],
+        //             deaths: Object.values(deaths)[0],
+        //             recovered: Object.values(recovered)[0]
+        //         }
+
+        //     })
+        //     .catch(err => console.log('Error fetching previous day global stats'))
 
     }
 }
@@ -171,11 +194,11 @@ export const getPreviousDayData = (country = null) => {
 
     if (country) {
 
-        fetch(PROXY_URL + BASE_URL + `/historical/${country}?lastdays=1`)
+        return fetch(PROXY_URL + BASE_URL + `/historical/${country}?lastdays=1`)
             .then(res => res.json())
             .then((data) => {
 
-                const { cases, deaths, recovered } = data;
+                const { cases, deaths, recovered } = data.timeline;
 
                 previousDayGlobalStats = {
                     cases: Object.values(cases)[0],
@@ -186,25 +209,32 @@ export const getPreviousDayData = (country = null) => {
                 return previousDayGlobalStats;
 
             })
-            .catch(err => console.log('Error fetching previous day global stats'))
+            .catch(err => {
+                console.log('Error fetching previous day country stats')
+                return previousDayGlobalStats;
+            })
 
     } else {
-        fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=1')
+
+        return fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=1')
             .then(res => res.json())
             .then((data) => {
-    
+
                 const { cases, deaths, recovered } = data;
-    
+
                 previousDayGlobalStats = {
                     cases: Object.values(cases)[0],
                     deaths: Object.values(deaths)[0],
                     recovered: Object.values(recovered)[0]
                 }
-    
+
                 return previousDayGlobalStats;
-    
+
             })
-            .catch(err => console.log('Error fetching previous day global stats'))
+            .catch(err => {
+                console.log('Error fetching previous day global stats')
+                return previousDayGlobalStats;
+            })
     }
 
 }

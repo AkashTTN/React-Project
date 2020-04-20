@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import * as am4core from "@amcharts/amcharts4/core";
@@ -8,17 +8,11 @@ import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import classes from './Map.module.css';
 
 
-const Map = (props) => {
+const Map = React.memo((props) => {
+
+    console.log('MAPS MOUNTED');
     
     let map = null;
-
-    useEffect(() => {
-
-        return () => {
-            console.log('UNMOUNT', map);
-            map && map.dispose();
-        }
-    }, []);
 
     useEffect(() => {
         if (props.statsByCountry) {
@@ -69,7 +63,7 @@ const Map = (props) => {
             {map ? <p>Waiting for data...</p> : <div className={classes.MapDiv}></div>}
         </div>
     )
-}
+})
 
 const mapStateToProps = state => {
     return {
