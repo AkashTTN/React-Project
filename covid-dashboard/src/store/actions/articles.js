@@ -10,10 +10,6 @@ const apiConfig = {
     from: new Date().toISOString(),
 }
 
-// Smartable AI API Key
-// const SUBSCRIPTION_KEY = '5ac2ea7a3606407ca26144c333554ec1';
-
-
 export const fetchedArticles = articles => {
     return {
         type: actionTypes.GET_ARTICLES,

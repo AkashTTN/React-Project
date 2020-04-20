@@ -165,6 +165,7 @@ export const getHistoricalData = (country = null) => {
     }
 }
 
+// Not used currently
 export const getPreviousDayData = (country = null) => {
 
     let previousDayGlobalStats = null;
@@ -186,7 +187,10 @@ export const getPreviousDayData = (country = null) => {
                 return previousDayGlobalStats;
 
             })
-            .catch(err => console.log('Error fetching previous day global stats'))
+            .catch(err => {
+                console.log('Error fetching previous day country stats');
+                return previousDayGlobalStats;
+            })
 
     } else {
         fetch(PROXY_URL + BASE_URL + '/historical/all?lastdays=1')
@@ -204,7 +208,10 @@ export const getPreviousDayData = (country = null) => {
                 return previousDayGlobalStats;
     
             })
-            .catch(err => console.log('Error fetching previous day global stats'))
+            .catch(err => {
+                console.log('Error fetching previous day global stats');
+                return previousDayGlobalStats;
+            })
     }
 
 }

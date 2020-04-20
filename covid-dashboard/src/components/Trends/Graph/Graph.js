@@ -45,10 +45,6 @@ const Graph = (props) => {
     let chart = null;
     
     useEffect(() => {
-        chart && chart.dispose();
-    }, []);
-    
-    useEffect(() => {
         if (historicalData) {
             
             const data = formatData(historicalData, dataKey);
@@ -62,7 +58,6 @@ const Graph = (props) => {
             } else {
                 chart.colors.list = [ am4core.color('red') ];
             }
-            
             
             // Enable chart cursor
             chart.cursor = new am4charts.XYCursor();

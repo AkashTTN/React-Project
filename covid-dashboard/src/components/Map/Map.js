@@ -9,16 +9,16 @@ import classes from './Map.module.css';
 
 
 const Map = (props) => {
-    
+
     let map = null;
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        return () => {
-            console.log('UNMOUNT', map);
-            map && map.dispose();
-        }
-    }, []);
+    //     return () => {
+    //         console.log('UNMOUNT', map);
+    //         map && map.dispose();
+    //     }
+    // }, []);
 
     useEffect(() => {
         if (props.statsByCountry) {

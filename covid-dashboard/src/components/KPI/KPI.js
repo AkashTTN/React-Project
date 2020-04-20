@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { formatNumbers, getTrendStatus } from '../Utilities';
-
-import { getPreviousDayData } from '../../store/actions';
+import { formatNumbers } from '../Utilities';
 
 import Card from './Card/Card';
 
@@ -32,9 +30,9 @@ const KPI = (props) => {
 
     if (props.error) {
         cards = <p>Something went wrong</p>;
-    }
-
-    if (props.stats) {
+    } 
+    
+    if (props.stats){
         const stats = {
             cases: [props.stats['cases'], props.stats['isCasesIncreasing']],
             recovered: [props.stats['recovered'], props.stats['isRecoveredIncreasing']],
@@ -62,28 +60,20 @@ const KPI = (props) => {
 
 const mapStateToProps = (state) => {
 
-    const { stats: { showCountry }, status } = state;
+    // if (showCountry.mode) {
 
-    if (showCountry.mode) {
+    //     const previousDayData = getPreviousDayData(showCountry.data.country);
 
-        // const previousDayData = getPreviousDayData(showCountry.data.country);
+    //     const trendStatus = getTrendStatus(showCountry.data, previousDayData);
 
-        // const trendStatus = getTrendStatus(showCountry.data, previousDayData);
-
-        // return {
-        //     stats: {...showCountry.data, ...trendStatus},
-        //     error: status.stats['Stats']
-        // };
-
-        return {
-            stats: showCountry.data,
-            error: status.stats['Stats']
-        };
-        
-    };
+    //     return {
+    //         stats: {...showCountry.data, ...trendStatus},
+    //         error: status.stats['Stats']
+    //     };
+    // };
 
     return {
-        stats: state.stats.globalStats,
+        stats: state.stats.showCountry.mode ? state.stats.showCountry.data : state.stats.globalStats,
         error: state.status.stats['Stats']
     };
 
