@@ -22,7 +22,7 @@ const NavigationItems = props => {
                 {/* <div className={classes.Logo}></div> */}
             </a>
             <ul className={classes.NavigationItems}>
-                <NavigationItem link="/" >HOME</NavigationItem>
+                <NavigationItem exact link="/" >HOME</NavigationItem>
                 <NavigationItem link="/faqs" >FAQ</NavigationItem>
                 <NavigationItem link="/help-links" >HELPFUL LINKS</NavigationItem>
             </ul>
